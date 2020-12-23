@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
+    <div id="header-offset"></div>
     <router-view></router-view>
   </div>
 </template>
@@ -18,5 +19,9 @@ export default {
 #app {
   margin: auto;
   max-width: 960px;
+
+  #header-offset {
+    margin-top: 61px;
+  }
 }
 </style>
