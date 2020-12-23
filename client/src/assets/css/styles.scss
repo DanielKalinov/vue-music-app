@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+
+$primary: #66bb6a;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: #fafafa;
+}
+
+body {
+  background-color: #000;
+}
+
+.button {
+  border-radius: 6px;
+  padding: 10px 20px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.primary-btn {
+  background-color: $primary;
+  font-weight: 700;
+  color: #212121;
+}
+
+.secondary-btn {
+  border: solid 1px #fafafa;
+}

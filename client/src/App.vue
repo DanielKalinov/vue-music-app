@@ -1,7 +1,22 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <Header></Header>
+    <router-view></router-view>
+  </div>
 </template>
 
-<script></script>
+<script>
+import './assets/css/styles.scss';
+import Header from './components/Header.vue';
 
-<style></style>
+export default {
+  components: { Header },
+};
+</script>
+
+<style lang="scss">
+#app {
+  margin: auto;
+  max-width: 960px;
+}
+</style>
