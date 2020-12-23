@@ -15,18 +15,70 @@ body {
 }
 
 .button {
+  border: none;
   border-radius: 6px;
   padding: 10px 20px;
   height: fit-content;
   width: fit-content;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
 .primary-btn {
   background-color: $primary;
   font-weight: 700;
   color: #212121;
+
+  &:hover {
+    background-color: lighten($color: $primary, $amount: 10);
+  }
 }
 
 .secondary-btn {
   border: solid 1px #fafafa;
+}
+
+form {
+  border-radius: 6px;
+  margin-top: 200px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  background-color: #212121;
+
+  h2 {
+    margin-bottom: 40px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input {
+      display: block;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      width: 100%;
+      background-color: #424242;
+      transition: all 0.1s ease-in-out;
+
+      &:hover {
+        background-color: #616166;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 1px #fafafa;
+      }
+    }
+  }
+
+  button {
+    width: 100% !important;
+  }
 }
