@@ -48,6 +48,14 @@ form {
   max-width: 300px;
   background-color: #212121;
 
+  .server-err-message {
+    margin-bottom: 20px;
+    border: solid 1px $danger;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: rgba($color: $danger, $alpha: 0.2);
+  }
+
   h2 {
     margin-bottom: 40px;
   }
