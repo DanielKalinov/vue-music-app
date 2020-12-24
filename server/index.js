@@ -28,6 +28,10 @@ app.use(
   })
 );
 
+app.post('/signup', (req, res) => {
+  res.sendStatus(200);
+});
+
 mongoose.connect(
   process.env.MONGODB_CONNECTION,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },

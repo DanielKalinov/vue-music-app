@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 
 $primary: #66bb6a;
+$danger: #ef5350;
 
 * {
   margin: 0;
@@ -76,9 +77,23 @@ form {
         box-shadow: 0 0 0 1px #fafafa;
       }
     }
+
+    .form-err-message {
+      color: $danger;
+    }
   }
 
   button {
     width: 100% !important;
+
+    &:disabled {
+      background-color: #424242;
+      color: #616161;
+      cursor: default;
+
+      &:hover {
+        background-color: #424242;
+      }
+    }
   }
 }
