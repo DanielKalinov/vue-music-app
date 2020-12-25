@@ -30,10 +30,10 @@ app.use(
   })
 );
 
-app.post('/signup', (req, res) => {
+app.post('/signup', async (req, res) => {
   const { email, password } = req.body;
 
-  User.findOne({ email })
+  await User.findOne({ email })
     .then((user) => {
       if (user) {
         throw Error('Email is already in use');
@@ -54,7 +54,17 @@ app.post('/signup', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  User.findOne({ email: req.body.email }).then(() => res.sendStatus(200));
+  const { email, password } = req.body;
+
+  User.login(email, password)
+    .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.message === 'Incorrect email or password') {
+        res.status(401).json(err.message);
+      } else {
+        res.status(500).json('Something went wrong. Please try again later');
+      }
+    });
 });
 
 mongoose.connect(

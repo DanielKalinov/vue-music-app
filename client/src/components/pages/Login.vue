@@ -2,6 +2,7 @@
   <div id="login">
     <form @submit.prevent="onSubmit">
       <h2>Login</h2>
+      <div v-if="serverErr" class="server-err-message">{{ serverErr }}</div>
       <div class="form-group">
         <label for="email">Email</label>
         <input type="text" name="email" v-model.trim="email" />
@@ -25,8 +26,9 @@ export default {
     return {
       email: '',
       password: '',
-      emailIsValid: 'pending',
-      passwordIsValid: 'pending'
+      emailIsValid: '',
+      passwordIsValid: '',
+      serverErr: ''
     };
   },
   computed: {
@@ -41,7 +43,12 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then((res) => console.log(res));
+        .then((res) => console.log(res))
+        .catch((err) => {
+          this.serverErr = err.response.data;
+          this.email = '';
+          this.password = '';
+        });
     }
   }
 };
