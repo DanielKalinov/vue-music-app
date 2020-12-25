@@ -13,6 +13,17 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.statics.signUp = async function (email, password) {
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    throw Error('Email is already in use');
+  } else {
+    const user = await User.create({ email, password });
+    return user;
+  }
+};
+
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {

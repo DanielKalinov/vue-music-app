@@ -4,15 +4,9 @@ module.exports.signUp = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-
-    if (user) {
-      throw Error('Email is already in use');
-    } else {
-      const user = await User.create({ email, password });
-      req.session.userID = user._id;
-      res.send(user);
-    }
+    const user = await User.signUp(email, password);
+    req.session.userID = user._id;
+    res.send(user);
   } catch (err) {
     if (err.message === 'Email is already in use') {
       res.status(409).json(err.message);
