@@ -77,10 +77,14 @@ export default {
     },
     onSubmit() {
       axios
-        .post('http://localhost:3000/signup', {
-          email: this.email,
-          password: this.password
-        })
+        .post(
+          'http://localhost:3000/signup',
+          {
+            email: this.email,
+            password: this.password
+          },
+          { withCredentials: true }
+        )
         .then((res) => console.log(res.data))
         .catch((err) => {
           this.serverErr = err.response.data;
