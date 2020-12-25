@@ -39,10 +39,14 @@ export default {
   methods: {
     onSubmit() {
       axios
-        .post('http://localhost:3000/login', {
-          email: this.email,
-          password: this.password
-        })
+        .post(
+          'http://localhost:3000/login',
+          {
+            email: this.email,
+            password: this.password
+          },
+          { withCredentials: true }
+        )
         .then((res) => console.log(res))
         .catch((err) => {
           this.serverErr = err.response.data;
