@@ -5,8 +5,6 @@ module.exports.auth = async (req, res) => {
 
   if (user) {
     res.json({ user: { email: user.email } });
-  } else {
-    res.send('Not logged in');
   }
 };
 

@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <Header @logout="onLogout"></Header>
+    <Header @logout="onLogout" :user="user"></Header>
     <div id="header-offset"></div>
-    <h1 v-if="user">{{ user.email }}</h1>
     <router-view @login="onLogin"></router-view>
   </div>
 </template>
