@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -76,7 +74,7 @@ export default {
       }
     },
     onSubmit() {
-      axios
+      this.$http
         .post(
           'http://localhost:3000/signup',
           {
@@ -85,7 +83,9 @@ export default {
           },
           { withCredentials: true }
         )
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          console.log(res.data);
+        })
         .catch((err) => {
           this.serverErr = err.response.data;
           this.email = '';

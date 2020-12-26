@@ -25,7 +25,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
-    cookie: { httpOnly: true, secure: false, sameSite: 'lax' }
+    cookie: { httpOnly: false, secure: false, sameSite: 'lax' }
   })
 );
 app.use(authRoutes);

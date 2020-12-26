@@ -12,6 +12,11 @@ import Header from './components/Header.vue';
 
 export default {
   components: { Header },
+  created() {
+    this.$http
+      .get('http://localhost:3000/auth', { withCredentials: true })
+      .then((res) => console.log(res.data));
+  }
 };
 </script>
 
