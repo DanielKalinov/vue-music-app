@@ -24,7 +24,7 @@ userSchema.statics.signUp = async function (email, password) {
   }
 };
 
-userSchema.statics.login = async function (email, password) {
+userSchema.statics.logIn = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {
     const auth = await bcrypt.compare(password, user.password);

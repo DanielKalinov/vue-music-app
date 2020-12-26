@@ -79,7 +79,8 @@ export default {
           },
           { withCredentials: true }
         )
-        .then(() => {
+        .then((res) => {
+          this.$emit('login', res.data.user);
           this.$router.push('/');
         })
         .catch((err) => {

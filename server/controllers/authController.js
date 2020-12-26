@@ -30,9 +30,9 @@ module.exports.logIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.login(email, password);
+    const user = await User.logIn(email, password);
     req.session.userID = user._id;
-    res.send(user);
+    res.json({ user: { email: user.email } });
   } catch (err) {
     if (err.message === 'Incorrect email or password') {
       res.status(401).json(err.message);

@@ -34,6 +34,7 @@ export default {
   methods: {
     logOut() {
       this.$http.get('http://localhost:3000/logout').then(() => {
+        this.$emit('logout');
         this.$router.push('/login');
       });
     }

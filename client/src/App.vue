@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header @logout="onLogout"></Header>
     <div id="header-offset"></div>
-    <router-view></router-view>
+    <h1 v-if="user">{{ user.email }}</h1>
+    <router-view @login="onLogin"></router-view>
   </div>
 </template>
 
@@ -17,6 +18,14 @@ export default {
     };
   },
   components: { Header },
+  methods: {
+    onLogin(user) {
+      this.user = user;
+    },
+    onLogout() {
+      this.user = null;
+    }
+  },
   created() {
     this.$http
       .get('http://localhost:3000/auth', { withCredentials: true })
