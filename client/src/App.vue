@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <Header @logout="onLogout" :user="user"></Header>
-    <div id="header-offset"></div>
-    <router-view @login="onLogin"></router-view>
+    <template v-if="!loading">
+      <Header @logout="onLogout" :user="user"></Header>
+      <div id="header-offset"></div>
+      <router-view @login="onLogin"></router-view>
+    </template>
+    <div v-else class="spinner"></div>
   </div>
 </template>
 
@@ -13,7 +16,8 @@ import Header from './components/Header.vue';
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      loading: true
     };
   },
   components: { Header },
@@ -31,8 +35,10 @@ export default {
       .then((res) => {
         if (res.data.user) {
           this.user = res.data.user;
+          this.loading = false;
         } else {
           this.user = null;
+          this.loading = false;
         }
       });
   }
