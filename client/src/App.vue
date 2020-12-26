@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <template v-if="!loading">
+    <Header @logout="onLogout" :user="user"></Header>
+    <div id="header-offset"></div>
+    <router-view @signup="onSignup" @login="onLogin"></router-view>
+    <!-- <template v-if="!loading">
       <Header @logout="onLogout" :user="user"></Header>
       <div id="header-offset"></div>
       <router-view @login="onLogin"></router-view>
     </template>
-    <div v-else class="spinner"></div>
+    <div v-else class="spinner"></div> -->
   </div>
 </template>
 
@@ -22,6 +25,9 @@ export default {
   },
   components: { Header },
   methods: {
+    onSignup(user) {
+      this.user = user;
+    },
     onLogin(user) {
       this.user = user;
     },

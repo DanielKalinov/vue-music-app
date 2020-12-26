@@ -84,7 +84,8 @@ export default {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log(res.data);
+          this.$emit('signup', res.data.user);
+          this.$router.push('/');
         })
         .catch((err) => {
           this.serverErr = err.response.data;
