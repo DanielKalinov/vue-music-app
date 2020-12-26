@@ -16,12 +16,29 @@
           >Log In</router-link
         >
       </li>
+      <li>
+        <router-link
+          to="#"
+          @click="logOut"
+          id="logoutBtn"
+          class="button secondary-btn"
+          >Log Out</router-link
+        >
+      </li>
     </ul>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logOut() {
+      this.$http.get('http://localhost:3000/logout').then(() => {
+        this.$router.push('/login');
+      });
+    }
+  }
+};
 </script>
 
 <style lang="scss">

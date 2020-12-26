@@ -11,11 +11,22 @@ import './assets/css/styles.scss';
 import Header from './components/Header.vue';
 
 export default {
+  data() {
+    return {
+      user: null
+    };
+  },
   components: { Header },
   created() {
     this.$http
       .get('http://localhost:3000/auth', { withCredentials: true })
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        if (res.data.user) {
+          this.user = res.data.user;
+        } else {
+          this.user = null;
+        }
+      });
   }
 };
 </script>
