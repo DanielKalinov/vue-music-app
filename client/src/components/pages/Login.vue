@@ -71,14 +71,10 @@ export default {
     },
     onSubmit() {
       this.$http
-        .post(
-          'http://localhost:3000/login',
-          {
-            email: this.email,
-            password: this.password
-          },
-          { withCredentials: true }
-        )
+        .post('http://localhost:3000/login', {
+          email: this.email,
+          password: this.password
+        })
         .then((res) => {
           this.$emit('login', res.data.user);
           this.$router.push('/');

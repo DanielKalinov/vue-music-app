@@ -1,14 +1,11 @@
 <template>
   <div id="app">
-    <Header @logout="onLogout" :user="user"></Header>
-    <div id="header-offset"></div>
-    <router-view @signup="onSignup" @login="onLogin"></router-view>
-    <!-- <template v-if="!loading">
+    <template v-if="!loading">
       <Header @logout="onLogout" :user="user"></Header>
       <div id="header-offset"></div>
-      <router-view @login="onLogin"></router-view>
+      <router-view @login="onLogin" @signup="onSignup"></router-view>
     </template>
-    <div v-else class="spinner"></div> -->
+    <div v-else class="spinner"></div>
   </div>
 </template>
 
