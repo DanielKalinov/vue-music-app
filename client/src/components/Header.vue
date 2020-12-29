@@ -5,6 +5,9 @@
         <li>
           <router-link to="/">Home</router-link>
         </li>
+        <li>
+          <router-link to="/addsong">Add a Song</router-link>
+        </li>
       </ul>
       <ul id="auth-links">
         <li>
@@ -48,7 +51,7 @@ export default {
   props: ['user'],
   methods: {
     logOut() {
-      this.$http.get('http://localhost:3000/logout').then(() => {
+      this.$http.delete('http://localhost:3000/logout').then(() => {
         this.$emit('logout');
         this.$router.push('/login');
       });

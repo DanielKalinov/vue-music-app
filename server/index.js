@@ -6,6 +6,7 @@ const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const authRoutes = require('./routes/authRoutes');
+const cookieParser = require('cookie-parser');
 
 const sessionStore = new MongoStore({
   mongooseConnection: mongoose.connection,
@@ -19,13 +20,18 @@ app.use(
     credentials: true
   })
 );
+app.use(cookieParser());
 app.use(
   session({
     secret: 'secret key',
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
-    cookie: { httpOnly: false, secure: false, sameSite: 'lax' }
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'strict'
+    }
   })
 );
 app.use(authRoutes);

@@ -27,7 +27,11 @@
           Password must be at least 8 characters long
         </p>
       </div>
-      <button type="submit" :disabled="!formIsValid" class="button primary-btn">
+      <button
+        type="submit"
+        :disabled="!formIsValid"
+        class="button primary-btn submit-btn"
+      >
         Sign Up
       </button>
     </form>

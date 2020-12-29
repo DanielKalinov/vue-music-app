@@ -44,5 +44,6 @@ module.exports.logIn = async (req, res) => {
 
 module.exports.logOut = (req, res) => {
   req.session.destroy();
+  res.clearCookie('connect.sid');
   res.status(200).json('Logged Out');
 };

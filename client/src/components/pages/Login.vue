@@ -27,7 +27,11 @@
           Please enter a valid password
         </p>
       </div>
-      <button type="submit" :disabled="!formIsValid" class="button primary-btn">
+      <button
+        type="submit"
+        :disabled="!formIsValid"
+        class="button primary-btn submit-btn"
+      >
         Log In
       </button>
     </form>
