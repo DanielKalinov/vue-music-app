@@ -74,15 +74,8 @@ export default {
       }
     },
     onSubmit() {
-      this.$http
-        .post('http://localhost:3000/login', {
-          email: this.email,
-          password: this.password
-        })
-        .then((res) => {
-          this.$emit('login', res.data.user);
-          this.$router.push('/');
-        })
+      this.$store
+        .dispatch('logIn', { email: this.email, password: this.password })
         .catch((err) => {
           this.serverErr = err.response.data;
           this.email = '';

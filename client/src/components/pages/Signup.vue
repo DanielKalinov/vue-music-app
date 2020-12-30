@@ -78,19 +78,8 @@ export default {
       }
     },
     onSubmit() {
-      this.$http
-        .post(
-          'http://localhost:3000/signup',
-          {
-            email: this.email,
-            password: this.password
-          },
-          { withCredentials: true }
-        )
-        .then((res) => {
-          this.$emit('signup', res.data.user);
-          this.$router.push('/');
-        })
+      this.$store
+        .dispatch('signUp', { email: this.email, password: this.password })
         .catch((err) => {
           this.serverErr = err.response.data;
           this.email = '';

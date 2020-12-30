@@ -47,15 +47,14 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  props: ['user'],
+  computed: {
+    ...mapGetters(['user'])
+  },
   methods: {
-    logOut() {
-      this.$http.delete('http://localhost:3000/logout').then(() => {
-        this.$emit('logout');
-        this.$router.push('/login');
-      });
-    }
+    ...mapActions(['logOut'])
   }
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <template v-if="!loading">
-      <Header @logout="onLogout" :user="user"></Header>
+      <Header></Header>
       <div id="header-offset"></div>
-      <router-view @login="onLogin" @signup="onSignup"></router-view>
+      <router-view></router-view>
     </template>
     <div v-else class="spinner"></div>
   </div>
@@ -12,38 +12,15 @@
 <script>
 import './assets/css/styles.scss';
 import Header from './components/Header.vue';
+import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      user: null,
-      loading: true
-    };
-  },
   components: { Header },
-  methods: {
-    onSignup(user) {
-      this.user = user;
-    },
-    onLogin(user) {
-      this.user = user;
-    },
-    onLogout() {
-      this.user = null;
-    }
+  computed: {
+    ...mapGetters(['user', 'loading'])
   },
   created() {
-    this.$http
-      .get('http://localhost:3000/auth', { withCredentials: true })
-      .then((res) => {
-        if (res.data.user) {
-          this.user = res.data.user;
-          this.loading = false;
-        } else {
-          this.user = null;
-          this.loading = false;
-        }
-      });
+    this.$store.dispatch('auth');
   }
 };
 </script>
