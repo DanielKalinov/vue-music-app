@@ -54,7 +54,8 @@ const store = createStore({
     },
     logOut(context) {
       context.commit('logOut');
-    }
+    },
+    uploadSong() {}
   },
   mutations: {
     auth(state, user) {
@@ -77,7 +78,8 @@ const store = createStore({
         state.user = null;
         router.replace('/login');
       });
-    }
+    },
+    uploadSong() {}
   },
   getters: {
     user(state) {

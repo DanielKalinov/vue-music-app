@@ -6,7 +6,7 @@
           <router-link to="/">Home</router-link>
         </li>
         <li>
-          <router-link to="/addsong">Add a Song</router-link>
+          <router-link to="/uploadsong">Upload</router-link>
         </li>
       </ul>
       <ul id="auth-links">
