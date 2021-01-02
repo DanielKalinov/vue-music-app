@@ -5,6 +5,7 @@
       method="POST"
       enctype="multipart/form-data"
       @submit.prevent="uploadSong"
+      ref="form"
     >
       <h2>Upload a Song</h2>
       <div v-if="serverErr" class="server-err-message">{{ serverErr }}</div>
@@ -103,13 +104,24 @@ export default {
       };
       this.fileIsValid = true;
     },
-
     uploadSong() {
-      // const formData = new FormData();
-      // formData.append('title', this.title);
-      // formData.append('artist', this.artist);
-      // formData.append('file', this.file);
-      // this.$store.dispatch('uploadSong', formData);
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('artist', this.artist);
+      formData.append('file', this.file);
+      this.$store
+        .dispatch('uploadSong', formData)
+        .then((res) => console.log(res))
+        .catch((err) => {
+          this.serverErr = err;
+          this.title = '';
+          this.artist = '';
+          this.file = '';
+          this.$refs.file.value = '';
+          this.artistIsValid = '';
+          this.titleIsValid = '';
+          this.fileIsValid = '';
+        });
     }
   },
   computed: {

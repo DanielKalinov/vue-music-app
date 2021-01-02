@@ -55,8 +55,9 @@ app.use(authRoutes);
 app.post('/uploadsong', (req, res) => {
   upload(req, res, (err) => {
     if (!err) {
-      console.log(req.file);
       res.send('Done');
+    } else {
+      res.status(500).json('Something went wrong');
     }
   });
 });

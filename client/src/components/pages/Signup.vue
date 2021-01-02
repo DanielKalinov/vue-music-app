@@ -86,6 +86,8 @@ export default {
           this.serverErr = err.response.data;
           this.email = '';
           this.password = '';
+          this.emailIsValid = '';
+          this.passwordIsValid = '';
         });
     }
   }
