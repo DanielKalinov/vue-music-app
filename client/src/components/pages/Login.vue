@@ -10,6 +10,7 @@
           name="email"
           v-model.trim="email"
           @blur="validateEmail"
+          autocomplete="off"
         />
         <p v-if="emailIsValid === false" class="form-err-message">
           Please enter a valid email
@@ -22,6 +23,7 @@
           name="password"
           v-model.trim="password"
           @blur="validatePassword"
+          autocomplete="off"
         />
         <p v-if="passwordIsValid === false" class="form-err-message">
           Please enter a valid password
