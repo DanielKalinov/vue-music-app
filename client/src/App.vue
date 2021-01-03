@@ -4,6 +4,9 @@
       <Header></Header>
       <div id="header-offset"></div>
       <router-view></router-view>
+      <!-- <audio controls>
+        <source src="http://localhost:3000/stream" type="audio/mpeg" />
+      </audio> -->
     </template>
     <div v-else class="spinner"></div>
   </div>

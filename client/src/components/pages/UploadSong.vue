@@ -62,7 +62,6 @@ export default {
       title: '',
       artist: '',
       duration: null,
-      path: '',
       file: null,
       titleIsValid: '',
       artistIsValid: '',
@@ -100,7 +99,6 @@ export default {
       audio.onloadedmetadata = () => {
         window.URL.revokeObjectURL(audio.src);
         this.duration = audio.duration;
-        this.path = '/songs/' + this.file.name;
       };
       this.fileIsValid = true;
     },
@@ -108,6 +106,7 @@ export default {
       const formData = new FormData();
       formData.append('title', this.title);
       formData.append('artist', this.artist);
+      formData.append('duration', this.duration);
       formData.append('file', this.file);
       this.$store
         .dispatch('uploadSong', formData)
