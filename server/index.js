@@ -19,7 +19,7 @@ const sessionStore = new MongoStore({
 const storage = multer.diskStorage({
   destination: './public/song_files',
   filename: (req, file, cb) => {
-    cb(null, Date.now() + ' - ' + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname.replace(/ /g, ''));
   }
 });
 
@@ -57,8 +57,9 @@ app.post('/uploadsong', (req, res) => {
         title,
         artist,
         duration,
+        filename: req.file.filename.replace(/ /g, ''),
         path: req.file.path
-      }).then((res) => console.log(res));
+      }).then(() => res.sendStatus(201));
     } else {
       res.status(500).json('Something went wrong');
     }
@@ -69,34 +70,11 @@ app.get('/songs', async (req, res) => {
   res.json(songs);
 });
 
-// app.get('/stream', (req, res) => {
-//   const path = './public/songs/silent_running.mp3';
-//   const stat = fs.statSync(path);
-//   const fileSize = stat.size;
-//   const range = req.headers.range;
-//   if (range) {
-//     const parts = range.replace(/bytes=/, '').split('-');
-//     const start = parseInt(parts[0], 10);
-//     const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-//     const chunksize = end - start + 1;
-//     const file = fs.createReadStream(path, { start, end });
-//     const head = {
-//       'Content-Range': `bytes ${start} - ${end}/${fileSize}`,
-//       'Content-Length': chunksize,
-//       'Content-Type': 'audio/mpeg',
-//       'Accept-Ranges': 'bytes'
-//     };
-//     res.writeHead(206, head);
-//     file.pipe(res);
-//   } else {
-//     const head = {
-//       'Content-Length': fileSize,
-//       'Content-Type': 'audio/mpeg'
-//     };
-//     res.writeHead(200, head);
-//     fs.createReadStream(path).pipe(res);
-//   }
-// });
+app.get('/stream/:filename', (req, res) => {
+  res.sendFile(
+    path.join(__dirname, './public/song_files/' + req.params.filename)
+  );
+});
 
 mongoose.connect(
   process.env.MONGODB_CONNECTION,
