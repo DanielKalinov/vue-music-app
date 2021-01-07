@@ -9,29 +9,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
-  data() {
-    return {
-      audio: new Audio()
-    };
-  },
   created() {
     this.$store.dispatch('fetchSongs');
   },
   methods: {
-    playPause(song) {
-      if (this.audio.src === `http://localhost:3000/stream/${song.filename}`) {
-        if (this.audio.paused) {
-          this.audio.play();
-        } else {
-          this.audio.pause();
-        }
-      } else {
-        this.audio.src = `http://localhost:3000/stream/${song.filename}`;
-        this.audio.play();
-      }
-    }
+    ...mapActions(['playPause'])
   },
   computed: {
     ...mapGetters(['songs'])

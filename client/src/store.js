@@ -10,6 +10,8 @@ const store = createStore({
     return {
       user: null,
       songs: [],
+      audio: new Audio(),
+      currentSong: null,
       loading: true
     };
   },
@@ -79,6 +81,9 @@ const store = createStore({
             reject(err.response.data);
           });
       });
+    },
+    playPause(context, payload) {
+      context.commit('playPause', { song: payload });
     }
   },
   mutations: {
@@ -105,6 +110,21 @@ const store = createStore({
     },
     fetchSongs(state, payload) {
       state.songs = payload.songs;
+    },
+    playPause(state, payload) {
+      const { song } = payload;
+      if (state.audio.src === `http://localhost:3000/stream/${song.filename}`) {
+        if (state.audio.paused) {
+          state.audio.play();
+        } else {
+          state.audio.pause();
+        }
+      } else {
+        state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+        state.audio.play();
+        state.currentSong = song;
+        console.log(state.currentSong.title);
+      }
     }
   },
   getters: {
@@ -116,6 +136,9 @@ const store = createStore({
     },
     songs(state) {
       return state.songs;
+    },
+    currentSong(state) {
+      return state.currentSong;
     }
   }
 });
