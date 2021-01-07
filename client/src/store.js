@@ -9,13 +9,14 @@ const store = createStore({
   state() {
     return {
       user: null,
+      songs: [],
       loading: true
     };
   },
   actions: {
     auth(context) {
       axios.get(`${url}/auth`).then((res) => {
-        context.commit('auth', res.data.user);
+        context.commit('auth', { user: res.data.user });
       });
     },
     signUp(context, payload) {
@@ -26,7 +27,7 @@ const store = createStore({
           .then((res) => {
             resolve(res);
 
-            context.commit('signUp', res.data.user);
+            context.commit('signUp', { user: res.data.user });
 
             router.replace('/');
           })
@@ -46,7 +47,7 @@ const store = createStore({
           .then((res) => {
             resolve(res);
 
-            context.commit('login', res.data.user);
+            context.commit('login', { user: res.data.user });
 
             router.replace('/');
           })
@@ -57,6 +58,11 @@ const store = createStore({
     },
     logOut(context) {
       context.commit('logOut');
+    },
+    fetchSongs(context) {
+      axios.get('http://localhost:3000/songs').then((res) => {
+        context.commit('fetchSongs', { songs: res.data });
+      });
     },
     uploadSong(context, payload) {
       return new Promise((resolve, reject) => {
@@ -76,26 +82,29 @@ const store = createStore({
     }
   },
   mutations: {
-    auth(state, user) {
-      if (user) {
-        state.user = user;
+    auth(state, payload) {
+      if (payload.user) {
+        state.user = payload.user;
         state.loading = false;
       } else {
         state.user = null;
         state.loading = false;
       }
     },
-    signUp(state, user) {
-      state.user = user;
+    signUp(state, payload) {
+      state.user = payload.user;
     },
-    login(state, user) {
-      state.user = user;
+    login(state, payload) {
+      state.user = payload.user;
     },
     logOut(state) {
       axios.delete(`${url}/logout`).then(() => {
         state.user = null;
         router.replace('/login');
       });
+    },
+    fetchSongs(state, payload) {
+      state.songs = payload.songs;
     }
   },
   getters: {
@@ -104,6 +113,9 @@ const store = createStore({
     },
     loading(state) {
       return state.loading;
+    },
+    songs(state) {
+      return state.songs;
     }
   }
 });

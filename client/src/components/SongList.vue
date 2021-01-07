@@ -9,17 +9,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      audio: new Audio(),
-      songs: []
+      audio: new Audio()
     };
   },
   created() {
-    this.$http.get('http://localhost:3000/songs').then((res) => {
-      this.songs = res.data;
-    });
+    this.$store.dispatch('fetchSongs');
   },
   methods: {
     playPause(song) {
@@ -34,6 +32,9 @@ export default {
         this.audio.play();
       }
     }
+  },
+  computed: {
+    ...mapGetters(['songs'])
   }
 };
 </script>
