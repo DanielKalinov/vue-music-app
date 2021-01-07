@@ -1,13 +1,14 @@
 <template>
-  <div id="controls-container">
+  <div v-if="currentSong" id="controls-container">
     <div id="controls">
       <div class="song-info">
-        <p>Title</p>
-        <p>Artist</p>
+        <p>{{ currentSong.title }}</p>
+        <p>{{ currentSong.artist }}</p>
       </div>
       <div class="buttons">
         <i class="material-icons">skip_previous</i>
-        <i class="material-icons">play_arrow</i>
+        <i v-if="paused" class="material-icons">play_arrow</i>
+        <i v-else class="material-icons">pause</i>
         <i class="material-icons">skip_next</i>
       </div>
     </div>
@@ -15,7 +16,12 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from 'vuex';
+export default {
+  computed: {
+    ...mapGetters(['currentSong', 'paused'])
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -12,6 +12,7 @@ const store = createStore({
       songs: [],
       audio: new Audio(),
       currentSong: null,
+      paused: false,
       loading: true
     };
   },
@@ -116,14 +117,15 @@ const store = createStore({
       if (state.audio.src === `http://localhost:3000/stream/${song.filename}`) {
         if (state.audio.paused) {
           state.audio.play();
+          state.paused = false;
         } else {
           state.audio.pause();
+          state.paused = true;
         }
       } else {
         state.audio.src = `http://localhost:3000/stream/${song.filename}`;
         state.audio.play();
         state.currentSong = song;
-        console.log(state.currentSong.title);
       }
     }
   },
@@ -139,6 +141,9 @@ const store = createStore({
     },
     currentSong(state) {
       return state.currentSong;
+    },
+    paused(state) {
+      return state.paused;
     }
   }
 });
