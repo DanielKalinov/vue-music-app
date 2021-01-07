@@ -96,8 +96,7 @@ const store = createStore({
         state.user = null;
         router.replace('/login');
       });
-    },
-    uploadSong() {}
+    }
   },
   getters: {
     user(state) {

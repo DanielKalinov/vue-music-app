@@ -1,55 +1,18 @@
 <template>
   <div id="home">
-    <ul v-for="song in songs" :key="song.id">
-      <li @click="playPause(song)">
-        {{ song.title }}
-      </li>
-    </ul>
+    <h1>Home</h1>
+    <SongList />
   </div>
 </template>
 
 <script>
+import SongList from '../SongList';
+
 export default {
-  data() {
-    return {
-      audio: new Audio(),
-      songs: []
-    };
-  },
-  methods: {
-    playPause(song) {
-      if (this.audio.src === `http://localhost:3000/stream/${song.filename}`) {
-        if (this.audio.paused) {
-          this.audio.play();
-        } else {
-          this.audio.pause();
-        }
-      } else {
-        this.audio.src = `http://localhost:3000/stream/${song.filename}`;
-        this.audio.play();
-      }
-    }
-  },
-  created() {
-    this.$http.get('http://localhost:3000/songs').then((res) => {
-      this.songs = res.data;
-    });
+  components: {
+    SongList
   }
 };
 </script>
 
-<style lang="scss" scoped>
-ul {
-  list-style: none;
-
-  li {
-    border-bottom: solid 1px #212121;
-    padding: 20px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #212121;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

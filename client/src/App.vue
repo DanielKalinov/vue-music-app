@@ -1,12 +1,10 @@
 <template>
   <div id="app">
     <template v-if="!loading">
-      <Header></Header>
+      <Header />
       <div id="header-offset"></div>
       <router-view></router-view>
-      <!-- <audio controls>
-        <source src="http://localhost:3000/stream" type="audio/mpeg" />
-      </audio> -->
+      <Controls />
     </template>
     <div v-else class="spinner"></div>
   </div>
@@ -15,15 +13,16 @@
 <script>
 import './assets/css/styles.scss';
 import Header from './components/Header.vue';
+import Controls from './components/Controls.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { Header },
-  computed: {
-    ...mapGetters(['user', 'loading'])
-  },
   created() {
     this.$store.dispatch('auth');
+  },
+  components: { Header, Controls },
+  computed: {
+    ...mapGetters(['user', 'loading'])
   }
 };
 </script>
