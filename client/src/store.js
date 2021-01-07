@@ -85,6 +85,9 @@ const store = createStore({
     },
     playPause(context, payload) {
       context.commit('playPause', { song: payload });
+    },
+    playPauseControls(context) {
+      context.commit('playPauseControls');
     }
   },
   mutations: {
@@ -126,6 +129,16 @@ const store = createStore({
         state.audio.src = `http://localhost:3000/stream/${song.filename}`;
         state.audio.play();
         state.currentSong = song;
+        state.paused = false;
+      }
+    },
+    playPauseControls(state) {
+      if (state.audio.paused) {
+        state.audio.play();
+        state.paused = false;
+      } else {
+        state.audio.pause();
+        state.paused = true;
       }
     }
   },

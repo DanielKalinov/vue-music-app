@@ -7,8 +7,9 @@
       </div>
       <div class="buttons">
         <i class="material-icons">skip_previous</i>
-        <i v-if="paused" class="material-icons">play_arrow</i>
-        <i v-else class="material-icons">pause</i>
+        <i class="material-icons" @click="playPauseControls">
+          {{ paused ? 'play_arrow' : 'pause' }}
+        </i>
         <i class="material-icons">skip_next</i>
       </div>
     </div>
@@ -16,10 +17,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['currentSong', 'paused'])
+  },
+  methods: {
+    ...mapActions(['playPauseControls'])
   }
 };
 </script>
@@ -46,6 +50,7 @@ export default {
         padding: 10px;
         cursor: pointer;
         transition: all 0.1s ease-in-out;
+        user-select: none;
 
         &:hover {
           background-color: #424242;
