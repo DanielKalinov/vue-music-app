@@ -1,0 +1,50 @@
+<template>
+  <div
+    class="song-item"
+    :class="{ 'active-song-item': isActive }"
+    @click="playPause(song)"
+  >
+    <p>{{ song.title }}</p>
+    <p>{{ song.artist }}</p>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+export default {
+  props: ['song'],
+  methods: {
+    ...mapActions(['playPause'])
+  },
+  computed: {
+    ...mapGetters(['currentSong']),
+    isActive() {
+      if (this.currentSong && this.currentSong._id === this.song._id) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.song-item {
+  border-bottom: solid 1px #212121;
+  padding: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #212121;
+  }
+}
+
+.active-song-item {
+  background-color: #424242;
+
+  &:hover {
+    background-color: #424242;
+  }
+}
+</style>

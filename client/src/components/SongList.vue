@@ -1,22 +1,25 @@
 <template>
   <div id="song-list">
     <ul v-for="song in songs" :key="song.id">
-      <li @click="playPause(song)">
-        {{ song.title }}
+      <li>
+        <SongItem :song="song" />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
+import SongItem from './SongItem';
+
 export default {
   created() {
     this.$store.dispatch('fetchSongs');
   },
-  methods: {
-    ...mapActions(['playPause'])
+  components: {
+    SongItem
   },
+
   computed: {
     ...mapGetters(['songs'])
   }
@@ -26,15 +29,5 @@ export default {
 <style lang="scss" scoped>
 ul {
   list-style: none;
-
-  li {
-    border-bottom: solid 1px #212121;
-    padding: 20px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #212121;
-    }
-  }
 }
 </style>
