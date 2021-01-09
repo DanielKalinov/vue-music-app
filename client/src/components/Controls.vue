@@ -5,6 +5,16 @@
         <p>{{ currentSong.title }}</p>
         <p>{{ currentSong.artist }}</p>
       </div>
+      <div id="progress-bar-container">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          id="progress-bar-slider"
+          @input="onInput"
+        />
+      </div>
       <div class="buttons">
         <i class="material-icons">skip_previous</i>
         <i class="material-icons" @click="playPauseControls">
@@ -23,7 +33,18 @@ export default {
     ...mapGetters(['currentSong', 'paused'])
   },
   methods: {
-    ...mapActions(['playPauseControls'])
+    ...mapActions(['playPauseControls']),
+    onInput(e) {
+      const slider = e.currentTarget;
+      const sliderValue = e.currentTarget.value;
+      const color =
+        'linear-gradient(90deg, rgb(102, 187, 106)' +
+        sliderValue +
+        '%, rgb(224, 224, 224)' +
+        sliderValue +
+        '%)';
+      slider.style.background = color;
+    }
   }
 };
 </script>
@@ -43,6 +64,56 @@ export default {
     margin: auto;
     padding: 20px;
     max-width: 960px;
+
+    #progress-bar-container {
+      position: relative;
+      width: 400px;
+      height: 10px;
+
+      #progress-bar-slider {
+        -webkit-appearance: none;
+        border-radius: 6px;
+        height: 6px;
+        width: 400px;
+        cursor: pointer;
+        background: linear-gradient(
+          90deg,
+          rgb(224, 224, 224),
+          50%,
+          rgb(224, 224, 224) 50%
+        );
+        outline: none;
+
+        &:active::-webkit-slider-thumb {
+          box-shadow: 0 0 0 16px rgba($color: #66bb6a, $alpha: 0.1);
+        }
+
+        &:active::-moz-range-thumb {
+          box-shadow: 0 0 0 16px rgba($color: #66bb6a, $alpha: 0.1);
+        }
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          border: none;
+          border-radius: 50%;
+          height: 16px;
+          width: 16px;
+          cursor: pointer;
+          background-color: #66bb6a;
+          transition: all 0.2s ease-in-out;
+        }
+
+        &::-moz-range-thumb {
+          border: none;
+          border-radius: 50%;
+          height: 16px;
+          width: 16px;
+          cursor: pointer;
+          background-color: #66bb6a;
+          transition: all 0.2s ease-in-out;
+        }
+      }
+    }
 
     .buttons {
       i {
