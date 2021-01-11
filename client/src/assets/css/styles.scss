@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 
-$primary: #66bb6a;
+$primary: #64b5f6;
 $danger: #ef5350;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
   color: #fafafa;
+
+  &:not(i) {
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
 body {

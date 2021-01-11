@@ -3,7 +3,7 @@
     <Header />
     <div id="header-offset"></div>
     <router-view @play="onPlay"></router-view>
-    <Controls ref="controls" />
+    <Controls ref="controls" :currentTime="currentTime" />
   </div>
 </template>
 
@@ -14,6 +14,11 @@ import Controls from './components/Controls.vue';
 import { mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      currentTime: 0
+    };
+  },
   created() {
     this.$store.dispatch('auth');
   },
@@ -28,12 +33,22 @@ export default {
         slider.value = sliderValueInPercent;
 
         const color =
-          'linear-gradient(90deg, rgb(102, 187, 106)' +
+          'linear-gradient(90deg, rgb(100, 181, 246)' +
           slider.value +
           '%, rgb(224, 224, 224)' +
           slider.value +
           '%)';
         slider.style.background = color;
+
+        var mins = ~~((this.audio.currentTime % 3600) / 60);
+        var secs = ~~this.audio.currentTime % 60;
+
+        var result = '';
+
+        result += '' + mins + ':' + (secs < 10 ? '0' : '');
+        result += '' + secs;
+
+        this.currentTime = result;
       };
     }
   },
