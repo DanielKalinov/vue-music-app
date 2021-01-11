@@ -23,9 +23,9 @@ export default {
       const slider = this.$refs.controls.$refs.progressBarSlider;
 
       this.audio.ontimeupdate = () => {
-        const currentTimePercent = this.audio.currentTime / this.audio.duration;
-        const sliderPercentValue = 100 * currentTimePercent;
-        slider.value = sliderPercentValue;
+        const sliderValueInPercent =
+          100 * (this.audio.currentTime / this.audio.duration);
+        slider.value = sliderValueInPercent;
 
         const color =
           'linear-gradient(90deg, rgb(102, 187, 106)' +

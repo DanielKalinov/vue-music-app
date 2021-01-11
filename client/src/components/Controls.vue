@@ -39,13 +39,15 @@ export default {
     ...mapActions(['playPauseControls']),
     onInput(e) {
       const slider = e.currentTarget;
-      const sliderCurrentValue = e.currentTarget.value;
+      this.audio.currentTime = this.audio.duration * (slider.value / 100);
+
       const color =
         'linear-gradient(90deg, rgb(102, 187, 106)' +
-        sliderCurrentValue +
+        slider.value +
         '%, rgb(224, 224, 224)' +
-        sliderCurrentValue +
+        slider.value +
         '%)';
+
       slider.style.background = color;
     }
   }
@@ -103,7 +105,8 @@ export default {
           width: 16px;
           cursor: pointer;
           background-color: #66bb6a;
-          transition: all 0.2s ease-in-out;
+          box-shadow: 0 0 4px rgba($color: black, $alpha: 0.4);
+          transition: all 0.1s ease-in-out;
         }
 
         &::-moz-range-thumb {
@@ -113,7 +116,8 @@ export default {
           width: 16px;
           cursor: pointer;
           background-color: #66bb6a;
-          transition: all 0.2s ease-in-out;
+          box-shadow: 0 0 4px rgba($color: black, $alpha: 0.4);
+          transition: all 0.1s ease-in-out;
         }
       }
     }
