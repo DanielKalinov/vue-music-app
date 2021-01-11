@@ -10,11 +10,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   props: ['song'],
   methods: {
-    ...mapActions(['playPause'])
+    // ...mapActions(['playPause']),
+    playPause(song) {
+      this.$store.dispatch('playPause', song);
+      this.$emit('play');
+    }
   },
   computed: {
     ...mapGetters(['currentSong']),

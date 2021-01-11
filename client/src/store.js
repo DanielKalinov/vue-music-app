@@ -152,11 +152,17 @@ const store = createStore({
     songs(state) {
       return state.songs;
     },
+    audio(state) {
+      return state.audio;
+    },
     currentSong(state) {
       return state.currentSong;
     },
     paused(state) {
       return state.paused;
+    },
+    sliderValue(state) {
+      return state.sliderValue;
     }
   }
 });

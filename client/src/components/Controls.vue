@@ -1,21 +1,24 @@
 <template>
-  <div v-if="currentSong" id="controls-container">
+  <div id="controls-container">
     <div id="controls">
-      <div class="song-info">
-        <p>{{ currentSong.title }}</p>
-        <p>{{ currentSong.artist }}</p>
+      <div id="song-info">
+        <!-- <p>{{ currentSong.title }}</p> -->
+        <!-- <p>{{ currentSong.artist }}</p> -->
+        <p>Title</p>
+        <p>Artist</p>
       </div>
       <div id="progress-bar-container">
         <input
           type="range"
           min="0"
           max="100"
-          value="0"
+          :value="0"
           id="progress-bar-slider"
           @input="onInput"
+          ref="progressBarSlider"
         />
       </div>
-      <div class="buttons">
+      <div id="buttons">
         <i class="material-icons">skip_previous</i>
         <i class="material-icons" @click="playPauseControls">
           {{ paused ? 'play_arrow' : 'pause' }}
@@ -30,18 +33,18 @@
 import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['currentSong', 'paused'])
+    ...mapGetters(['audio', 'currentSong', 'paused', 'sliderValue'])
   },
   methods: {
     ...mapActions(['playPauseControls']),
     onInput(e) {
       const slider = e.currentTarget;
-      const sliderValue = e.currentTarget.value;
+      const sliderCurrentValue = e.currentTarget.value;
       const color =
         'linear-gradient(90deg, rgb(102, 187, 106)' +
-        sliderValue +
+        sliderCurrentValue +
         '%, rgb(224, 224, 224)' +
-        sliderValue +
+        sliderCurrentValue +
         '%)';
       slider.style.background = color;
     }
@@ -115,7 +118,7 @@ export default {
       }
     }
 
-    .buttons {
+    #buttons {
       i {
         border-radius: 6px;
         padding: 10px;

@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <template v-if="!loading">
-      <Header />
-      <div id="header-offset"></div>
-      <router-view></router-view>
-      <Controls />
-    </template>
-    <div v-else class="spinner"></div>
+    <Header />
+    <div id="header-offset"></div>
+    <router-view @play="onPlay"></router-view>
+    <Controls ref="controls" />
   </div>
 </template>
 
@@ -21,12 +18,31 @@ export default {
     this.$store.dispatch('auth');
   },
   components: { Header, Controls },
+  methods: {
+    onPlay() {
+      const slider = this.$refs.controls.$refs.progressBarSlider;
+
+      this.audio.ontimeupdate = () => {
+        const currentTimePercent = this.audio.currentTime / this.audio.duration;
+        const sliderPercentValue = 100 * currentTimePercent;
+        slider.value = sliderPercentValue;
+
+        const color =
+          'linear-gradient(90deg, rgb(102, 187, 106)' +
+          slider.value +
+          '%, rgb(224, 224, 224)' +
+          slider.value +
+          '%)';
+        slider.style.background = color;
+      };
+    }
+  },
   computed: {
-    ...mapGetters(['user', 'loading'])
+    ...mapGetters(['audio', 'user', 'loading'])
   }
 };
 </script>
-
+-
 <style lang="scss">
 #app {
   margin: auto;

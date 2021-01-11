@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <h1>Home</h1>
-    <SongList />
+    <SongList @play="onPlay" />
   </div>
 </template>
 
@@ -11,6 +11,11 @@ import SongList from '../SongList';
 export default {
   components: {
     SongList
+  },
+  methods: {
+    onPlay() {
+      this.$emit('play');
+    }
   }
 };
 </script>

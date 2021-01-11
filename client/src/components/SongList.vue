@@ -2,7 +2,7 @@
   <div id="song-list">
     <ul v-for="song in songs" :key="song.id">
       <li>
-        <SongItem :song="song" />
+        <SongItem @play="onPlay" :song="song" />
       </li>
     </ul>
   </div>
@@ -19,7 +19,11 @@ export default {
   components: {
     SongItem
   },
-
+  methods: {
+    onPlay() {
+      this.$emit('play');
+    }
+  },
   computed: {
     ...mapGetters(['songs'])
   }

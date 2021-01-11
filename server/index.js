@@ -76,6 +76,15 @@ app.get('/stream/:filename', (req, res) => {
   );
 });
 
+app.get('/song', (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      './public/song_files/1610195670040-Flashworx-NeverComeBack(extended).mp3'
+    )
+  );
+});
+
 mongoose.connect(
   process.env.MONGODB_CONNECTION,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
