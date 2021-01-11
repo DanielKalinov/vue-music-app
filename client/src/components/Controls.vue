@@ -6,7 +6,7 @@
         <p>{{ currentSong.artist }}</p>
       </div>
       <div id="progress-bar-container">
-        <p v-if="currentSong" style="width: 200px;">
+        <p v-if="currentSong" style="width: 60px;">
           {{ currentTime }}
         </p>
         <input
@@ -18,7 +18,7 @@
           @input="onInput"
           ref="progressBarSlider"
         />
-        <p v-if="currentSong" style="width: 200px; text-align: right;">
+        <p v-if="currentSong" style="width: 60px; text-align: right;">
           {{ currentSong.duration }}
         </p>
       </div>
@@ -36,7 +36,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
-  props: ['currentTime'],
+  props: ['currentTime', 'duration'],
   computed: {
     ...mapGetters(['loading', 'audio', 'currentSong', 'paused', 'sliderValue'])
   },

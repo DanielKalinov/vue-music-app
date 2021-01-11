@@ -98,7 +98,16 @@ export default {
       audio.src = URL.createObjectURL(this.file);
       audio.onloadedmetadata = () => {
         window.URL.revokeObjectURL(audio.src);
-        this.duration = audio.duration;
+
+        var mins = ~~((audio.duration % 3600) / 60);
+        var secs = ~~audio.duration % 60;
+
+        var result = '';
+
+        result += '' + mins + ':' + (secs < 10 ? '0' : '');
+        result += '' + secs;
+
+        this.duration = result;
       };
       this.fileIsValid = true;
     },
