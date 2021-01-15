@@ -111,15 +111,27 @@ export default {
         &::-moz-range-thumb {
           transform: scale(1);
         }
+
+        &::-webkit-slider-thumb {
+          transform: scale(1);
+        }
       }
 
       &:disabled {
         cursor: auto;
-      }
 
-      // &:disabled::-moz-range-thumb {
-      //   visibility: hidden;
-      // }
+        &:hover {
+          height: 4px;
+
+          &::-moz-range-thumb {
+            transform: scale(0);
+          }
+
+          &::-webkit-slider-thumb {
+            transform: scale(0);
+          }
+        }
+      }
 
       &:active::-webkit-slider-thumb {
         box-shadow: 0 0 0 16px rgba($color: $primary, $alpha: 0.1);
@@ -131,6 +143,7 @@ export default {
 
       &::-webkit-slider-thumb {
         -webkit-appearance: none;
+        transform: scale(0);
         border: none;
         border-radius: 50%;
         height: 16px;
