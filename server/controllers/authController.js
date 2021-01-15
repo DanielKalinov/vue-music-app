@@ -3,10 +3,11 @@ const User = require('../models/user');
 module.exports.auth = async (req, res) => {
   const user = await User.findById(req.session.userID);
 
-  if (user) {
+  try {
+    const user = await User.findById(req.session.userID);
     res.json({ user: { email: user.email } });
-  } else {
-    res.send('Logged Out');
+  } catch (err) {
+    res.status(401).json('User not authorized');
   }
 };
 
@@ -44,6 +45,5 @@ module.exports.logIn = async (req, res) => {
 
 module.exports.logOut = (req, res) => {
   req.session.destroy();
-  res.clearCookie('connect.sid');
   res.status(200).json('Logged Out');
 };

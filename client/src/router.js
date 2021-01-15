@@ -9,10 +9,20 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: Home },
-    { path: '/uploadsong', component: UploadSong },
-    { path: '/signup', component: Signup },
-    { path: '/login', component: Login },
-    { path: '/profile', component: Profile }
+    {
+      path: '/uploadsong',
+      component: UploadSong,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/signup',
+      component: Signup
+    },
+    {
+      path: '/login',
+      component: Login
+    },
+    { path: '/profile', component: Profile, meta: { requiresAuth: true } }
   ]
 });
 

@@ -4,8 +4,11 @@
     :class="{ 'active-song-item': isActive }"
     @click="playPause(song)"
   >
-    <p>{{ song.title }}</p>
-    <p>{{ song.artist }}</p>
+    <div>
+      <p>{{ song.title }}</p>
+      <p>{{ song.artist }}</p>
+    </div>
+    <p>{{ song.duration }}</p>
   </div>
 </template>
 
@@ -35,6 +38,9 @@ export default {
 
 <style lang="scss" scoped>
 .song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: solid 1px #212121;
   padding: 20px;
   cursor: pointer;

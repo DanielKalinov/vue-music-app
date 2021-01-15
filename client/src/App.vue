@@ -20,7 +20,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('auth');
+    this.$store.dispatch('auth').catch(() => {});
   },
   components: { Header, Controls },
   methods: {

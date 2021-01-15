@@ -18,8 +18,16 @@ const store = createStore({
   },
   actions: {
     auth(context) {
-      axios.get(`${url}/auth`).then((res) => {
-        context.commit('auth', { user: res.data.user });
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${url}/auth`)
+          .then((res) => {
+            context.commit('auth', { user: res.data.user });
+            resolve(res.data.user);
+          })
+          .catch((err) => {
+            reject(err);
+          });
       });
     },
     signUp(context, payload) {
@@ -60,7 +68,9 @@ const store = createStore({
       });
     },
     logOut(context) {
-      context.commit('logOut');
+      axios.delete(`${url}/logout`).then(() => {
+        context.commit('logOut');
+      });
     },
     fetchSongs(context) {
       axios.get('http://localhost:3000/songs').then((res) => {
@@ -107,10 +117,8 @@ const store = createStore({
       state.user = payload.user;
     },
     logOut(state) {
-      axios.delete(`${url}/logout`).then(() => {
-        state.user = null;
-        router.replace('/login');
-      });
+      state.user = null;
+      router.replace('/login');
     },
     fetchSongs(state, payload) {
       state.songs = payload.songs;
