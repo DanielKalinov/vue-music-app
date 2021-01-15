@@ -1,5 +1,5 @@
 <template>
-  <div id="controls-container">
+  <div v-if="user" id="controls-container">
     <div id="controls">
       <div v-if="currentSong" id="song-info">
         <p>{{ currentSong.title }}</p>
@@ -38,7 +38,14 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   props: ['currentTime', 'duration'],
   computed: {
-    ...mapGetters(['loading', 'audio', 'currentSong', 'paused', 'sliderValue'])
+    ...mapGetters([
+      'user',
+      'loading',
+      'audio',
+      'currentSong',
+      'paused',
+      'sliderValue'
+    ])
   },
   methods: {
     ...mapActions(['playPauseControls']),
@@ -64,8 +71,8 @@ export default {
 
 #controls-container {
   position: fixed;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 100%;
   background-color: #212121;
 

@@ -3,6 +3,7 @@
     <Header />
     <div id="header-offset"></div>
     <router-view @play="onPlay"></router-view>
+    <div id="controls-offset"></div>
     <Controls ref="controls" :currentTime="currentTime" />
   </div>
 </template>
@@ -65,6 +66,10 @@ export default {
 
   #header-offset {
     margin-top: 61px;
+  }
+
+  #controls-offset {
+    margin-bottom: 84px;
   }
 }
 </style>

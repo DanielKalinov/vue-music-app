@@ -20,4 +20,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#home {
+  flex-grow: 1;
+}
+</style>
