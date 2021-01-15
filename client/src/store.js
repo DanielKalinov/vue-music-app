@@ -101,6 +101,9 @@ const store = createStore({
     playPauseControls(context) {
       context.commit('playPauseControls');
     },
+    skipPreviousControls(context) {
+      context.commit('skipPreviousControls');
+    },
     skipNextControls(context) {
       context.commit('skipNextControls');
     }
@@ -154,6 +157,17 @@ const store = createStore({
         state.audio.pause();
         state.paused = true;
       }
+    },
+    skipPreviousControls(state) {
+      state.currentSongIndex--;
+      if (state.currentSongIndex < 0) {
+        state.currentSongIndex = state.songs.length - 1;
+      }
+
+      const song = state.songs[state.currentSongIndex];
+      state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+      state.audio.play();
+      state.currentSong = song;
     },
     skipNextControls(state) {
       state.currentSongIndex++;
