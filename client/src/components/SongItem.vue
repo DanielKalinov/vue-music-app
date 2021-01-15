@@ -15,11 +15,10 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  props: ['song'],
+  props: ['song', 'index'],
   methods: {
-    // ...mapActions(['playPause']),
     playPause(song) {
-      this.$store.dispatch('playPause', song);
+      this.$store.dispatch('playPause', { song, index: this.index });
       this.$emit('play');
     }
   },

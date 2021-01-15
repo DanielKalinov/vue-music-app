@@ -27,7 +27,7 @@
       <i class="material-icons" @click="playPauseControls">
         {{ paused ? 'play_arrow' : 'pause' }}
       </i>
-      <i class="material-icons">skip_next</i>
+      <i class="material-icons" @click="skipNextControls">skip_next</i>
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
     ])
   },
   methods: {
-    ...mapActions(['playPauseControls']),
+    ...mapActions(['playPauseControls', 'skipNextControls']),
     onInput(e) {
       const slider = e.currentTarget;
       this.audio.currentTime = this.audio.duration * (slider.value / 100);

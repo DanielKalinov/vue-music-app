@@ -1,8 +1,8 @@
 <template>
   <div id="song-list">
-    <ul v-for="song in songs" :key="song.id">
+    <ul v-for="(song, index) in songs" :key="song.id">
       <li>
-        <SongItem @play="onPlay" :song="song" />
+        <SongItem @play="onPlay" :song="song" :index="index" />
       </li>
     </ul>
   </div>

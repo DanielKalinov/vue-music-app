@@ -12,6 +12,7 @@ const store = createStore({
       songs: [],
       audio: new Audio(),
       currentSong: null,
+      currentSongIndex: null,
       paused: false,
       loading: true
     };
@@ -94,10 +95,14 @@ const store = createStore({
       });
     },
     playPause(context, payload) {
-      context.commit('playPause', { song: payload });
+      const { song, index } = payload;
+      context.commit('playPause', { song, index });
     },
     playPauseControls(context) {
       context.commit('playPauseControls');
+    },
+    skipNextControls(context) {
+      context.commit('skipNextControls');
     }
   },
   mutations: {
@@ -124,7 +129,7 @@ const store = createStore({
       state.songs = payload.songs;
     },
     playPause(state, payload) {
-      const { song } = payload;
+      const { song, index } = payload;
       if (state.audio.src === `http://localhost:3000/stream/${song.filename}`) {
         if (state.audio.paused) {
           state.audio.play();
@@ -138,6 +143,7 @@ const store = createStore({
         state.audio.play();
         state.currentSong = song;
         state.paused = false;
+        state.currentSongIndex = index;
       }
     },
     playPauseControls(state) {
@@ -148,6 +154,17 @@ const store = createStore({
         state.audio.pause();
         state.paused = true;
       }
+    },
+    skipNextControls(state) {
+      state.currentSongIndex++;
+      if (state.currentSongIndex >= state.songs.length) {
+        state.currentSongIndex = 0;
+      }
+
+      const song = state.songs[state.currentSongIndex];
+      state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+      state.audio.play();
+      state.currentSong = song;
     }
   },
   getters: {
