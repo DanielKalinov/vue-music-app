@@ -36,7 +36,7 @@ export default {
         const color =
           'linear-gradient(90deg, rgb(100, 181, 246)' +
           slider.value +
-          '%, rgb(224, 224, 224)' +
+          '%, rgb(66, 66, 66)' +
           slider.value +
           '%)';
         slider.style.background = color;
