@@ -107,10 +107,15 @@ export default {
     },
     onSubmit() {
       this.$store
-        .dispatch('signUp', { email: this.email, password: this.password })
+        .dispatch('signUp', {
+          email: this.email,
+          username: this.username,
+          password: this.password
+        })
         .catch((err) => {
           this.serverErr = err.response.data;
           this.email = '';
+          this.username = '';
           this.password = '';
           this.emailIsValid = '';
           this.passwordIsValid = '';

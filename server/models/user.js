@@ -14,16 +14,20 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.statics.signUp = async function (email, password) {
-  const userExists = await User.findOne({ email });
+userSchema.statics.signUp = async function (email, username, password) {
+  const emailExists = await User.findOne({ email });
+  const usernameExists = await User.findOne({ username });
 
-  if (userExists) {
+  if (emailExists) {
     throw Error('Email is already in use');
-  } else {
-    const username = email.substr(0, email.indexOf('@'));
-    const user = await User.create({ email, username, password });
-    return user;
   }
+
+  if (usernameExists) {
+    throw Error('Username is already in use');
+  }
+
+  const user = await User.create({ email, username, password });
+  return user;
 };
 
 userSchema.statics.logIn = async function (email, password) {

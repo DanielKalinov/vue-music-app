@@ -32,10 +32,10 @@ const store = createStore({
       });
     },
     signUp(context, payload) {
-      const { email, password } = payload;
+      const { email, username, password } = payload;
       return new Promise((resolve, reject) => {
         axios
-          .post(`${url}/signup`, { email, password })
+          .post(`${url}/signup`, { email, username, password })
           .then((res) => {
             resolve(res);
 

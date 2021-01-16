@@ -10,14 +10,17 @@ module.exports.auth = async (req, res) => {
 };
 
 module.exports.signUp = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, username, password } = req.body;
 
   try {
-    const user = await User.signUp(email, password);
+    const user = await User.signUp(email, username, password);
     req.session.userID = user._id;
     res.json({ user: { email: user.email, username: user.username } });
   } catch (err) {
-    if (err.message === 'Email is already in use') {
+    if (
+      err.message === 'Email is already in use' ||
+      err.message === 'Username is already in use'
+    ) {
       res.status(409).json(err.message);
     } else {
       res.status(500).json('Something went wrong. Please try again later');
