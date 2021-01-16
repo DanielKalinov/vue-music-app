@@ -145,9 +145,22 @@ const store = createStore({
         state.audio.src = `http://localhost:3000/stream/${song.filename}`;
         state.audio.play();
         state.currentSong = song;
-        state.paused = false;
         state.currentSongIndex = index;
+        state.paused = false;
       }
+
+      state.audio.onended = () => {
+        state.currentSongIndex++;
+        if (state.currentSongIndex >= state.songs.length) {
+          state.currentSongIndex = 0;
+        }
+
+        const song = state.songs[state.currentSongIndex];
+        state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+        state.audio.play();
+        state.currentSong = song;
+        state.paused = false;
+      };
     },
     playPauseControls(state) {
       if (state.audio.paused) {
@@ -168,6 +181,7 @@ const store = createStore({
       state.audio.src = `http://localhost:3000/stream/${song.filename}`;
       state.audio.play();
       state.currentSong = song;
+      state.paused = false;
     },
     skipNextControls(state) {
       state.currentSongIndex++;
@@ -179,6 +193,7 @@ const store = createStore({
       state.audio.src = `http://localhost:3000/stream/${song.filename}`;
       state.audio.play();
       state.currentSong = song;
+      state.paused = false;
     }
   },
   getters: {
@@ -199,9 +214,6 @@ const store = createStore({
     },
     paused(state) {
       return state.paused;
-    },
-    sliderValue(state) {
-      return state.sliderValue;
     }
   }
 });

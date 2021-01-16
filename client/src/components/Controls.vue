@@ -1,5 +1,5 @@
 <template>
-  <div id="controls">
+  <div v-if="user" id="controls">
     <div id="song-info">
       <p>{{ currentSong ? currentSong.title : ' ' }}</p>
       <p>{{ currentSong ? currentSong.artist : ' ' }}</p>
@@ -12,7 +12,7 @@
         type="range"
         min="0"
         max="100"
-        :value="0"
+        value="0"
         id="progress-bar-slider"
         @input="onInput"
         ref="progressBarSlider"

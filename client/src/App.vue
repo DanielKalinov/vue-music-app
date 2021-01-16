@@ -32,7 +32,6 @@ export default {
         const sliderValueInPercent =
           100 * (this.audio.currentTime / this.audio.duration);
         slider.value = sliderValueInPercent;
-
         const color =
           'linear-gradient(90deg, rgb(100, 181, 246)' +
           slider.value +
