@@ -117,7 +117,9 @@ export default {
           this.email = '';
           this.username = '';
           this.password = '';
+
           this.emailIsValid = '';
+          this.usernameIsValid = '';
           this.passwordIsValid = '';
         });
     }

@@ -36,6 +36,18 @@
         </p>
       </div>
       <div class="form-group">
+        <label for="description">Your thoughts ...</label>
+        <textarea
+          name="description"
+          rows="4"
+          v-model="description"
+          @blur="validateDescription"
+        />
+        <p v-if="descriptionIsValid === false" class="form-err-message">
+          Please enter a description
+        </p>
+      </div>
+      <div class="form-group">
         <label for="file">File</label>
         <input
           type="file"
@@ -61,10 +73,12 @@ export default {
     return {
       title: '',
       artist: '',
+      description: '',
       duration: null,
       file: null,
       titleIsValid: '',
       artistIsValid: '',
+      descriptionIsValid: '',
       fileIsValid: '',
       serverErr: ''
     };
@@ -82,6 +96,13 @@ export default {
         this.artistIsValid = true;
       } else {
         this.artistIsValid = false;
+      }
+    },
+    validateDescription() {
+      if (this.description) {
+        this.descriptionIsValid = true;
+      } else {
+        this.descriptionIsValid = false;
       }
     },
     validateFile() {
@@ -115,6 +136,7 @@ export default {
       const formData = new FormData();
       formData.append('title', this.title);
       formData.append('artist', this.artist);
+      formData.append('description', this.description);
       formData.append('duration', this.duration);
       formData.append('file', this.file);
       this.$store
@@ -124,10 +146,13 @@ export default {
           this.serverErr = err;
           this.title = '';
           this.artist = '';
+          this.description = '';
           this.file = '';
           this.$refs.file.value = '';
-          this.artistIsValid = '';
+
           this.titleIsValid = '';
+          this.artistIsValid = '';
+          this.descriptionIsValid = '';
           this.fileIsValid = '';
         });
     }
@@ -137,6 +162,7 @@ export default {
       if (
         this.titleIsValid === true &&
         this.artistIsValid === true &&
+        this.descriptionIsValid === true &&
         this.fileIsValid === true
       ) {
         return true;

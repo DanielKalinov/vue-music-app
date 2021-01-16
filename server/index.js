@@ -8,7 +8,6 @@ const authRoutes = require('./routes/authRoutes');
 const MongoStore = require('connect-mongo')(session);
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 const Song = require('./models/song');
 
 const sessionStore = new MongoStore({
@@ -52,10 +51,11 @@ app.use(authRoutes);
 app.post('/uploadsong', (req, res) => {
   upload(req, res, (err) => {
     if (!err) {
-      const { title, artist, duration, path } = req.body;
+      const { title, artist, description, duration, path } = req.body;
       Song.create({
         title,
         artist,
+        description,
         duration,
         filename: req.file.filename.replace(/ /g, ''),
         path: req.file.path
