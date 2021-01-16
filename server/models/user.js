@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
   email: String,
+  username: String,
   password: String
 });
 
@@ -19,7 +20,8 @@ userSchema.statics.signUp = async function (email, password) {
   if (userExists) {
     throw Error('Email is already in use');
   } else {
-    const user = await User.create({ email, password });
+    const username = email.substr(0, email.indexOf('@'));
+    const user = await User.create({ email, username, password });
     return user;
   }
 };

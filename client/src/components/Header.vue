@@ -11,7 +11,7 @@
       </ul>
       <ul id="auth-links">
         <li>
-          <router-link to="/profile">{{ user.email }}</router-link>
+          <router-link to="/profile">{{ user.username }}</router-link>
         </li>
         <li>
           <router-link
