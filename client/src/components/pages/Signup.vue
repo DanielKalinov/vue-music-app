@@ -17,6 +17,19 @@
         </p>
       </div>
       <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="email"
+          v-model.trim="username"
+          @blur="validateUsername"
+          autocomplete="off"
+        />
+        <p v-if="usernameIsValid === false" class="form-err-message">
+          Username must be at least 10 characters long
+        </p>
+      </div>
+      <div class="form-group">
         <label for="password">Password</label>
         <input
           type="password"
@@ -26,7 +39,7 @@
           autocomplete="off"
         />
         <p v-if="passwordIsValid === false" class="form-err-message">
-          Password must be at least 8 characters long
+          Password must be at least 10 characters long
         </p>
       </div>
       <button
@@ -45,15 +58,21 @@ export default {
   data() {
     return {
       email: '',
+      username: '',
       password: '',
       emailIsValid: '',
+      usernameIsValid: '',
       passwordIsValid: '',
       serverErr: ''
     };
   },
   computed: {
     formIsValid() {
-      if (this.emailIsValid === true && this.passwordIsValid === true) {
+      if (
+        this.emailIsValid === true &&
+        this.usernameIsValid &&
+        this.passwordIsValid === true
+      ) {
         return true;
       } else {
         return false;
@@ -72,8 +91,15 @@ export default {
         this.emailIsValid = false;
       }
     },
+    validateUsername() {
+      if (this.username.length >= 10) {
+        this.usernameIsValid = true;
+      } else {
+        this.usernameIsValid = false;
+      }
+    },
     validatePassword() {
-      if (this.password.length >= 8) {
+      if (this.password.length >= 10) {
         this.passwordIsValid = true;
       } else {
         this.passwordIsValid = false;
