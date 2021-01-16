@@ -51,12 +51,12 @@
         <label for="file">File</label>
         <input
           type="file"
-          name="file"
+          name="songFile"
           accept="audio/*"
-          ref="file"
-          @change="handleFileChange"
+          ref="songFile"
+          @change="handleSongFileChange"
         />
-        <p v-if="fileIsValid === false" class="form-err-message">
+        <p v-if="songFileIsValid === false" class="form-err-message">
           Please select a file
         </p>
       </div>
@@ -75,11 +75,11 @@ export default {
       artist: '',
       description: '',
       duration: null,
-      file: null,
+      songFile: null,
       titleIsValid: '',
       artistIsValid: '',
       descriptionIsValid: '',
-      fileIsValid: '',
+      songFileIsValid: '',
       serverErr: ''
     };
   },
@@ -105,18 +105,18 @@ export default {
         this.descriptionIsValid = false;
       }
     },
-    validateFile() {
-      if (this.file) {
-        this.fileIsValid = true;
+    validateSongFile() {
+      if (this.songFile) {
+        this.songFileIsValid = true;
       } else {
-        this.fileIsValid = false;
+        this.songFileIsValid = false;
       }
     },
-    handleFileChange() {
-      this.file = this.$refs.file.files[0];
+    handleSongFileChange() {
+      this.songFile = this.$refs.songFile.files[0];
       const audio = new Audio();
       audio.preload = 'metadata';
-      audio.src = URL.createObjectURL(this.file);
+      audio.src = URL.createObjectURL(this.songFile);
       audio.onloadedmetadata = () => {
         window.URL.revokeObjectURL(audio.src);
 
@@ -130,7 +130,7 @@ export default {
 
         this.duration = result;
       };
-      this.fileIsValid = true;
+      this.songFileIsValid = true;
     },
     uploadSong() {
       const formData = new FormData();
@@ -138,7 +138,7 @@ export default {
       formData.append('artist', this.artist);
       formData.append('description', this.description);
       formData.append('duration', this.duration);
-      formData.append('file', this.file);
+      formData.append('songFile', this.songFile);
       this.$store
         .dispatch('uploadSong', formData)
         .then((res) => console.log(res))
@@ -147,13 +147,13 @@ export default {
           this.title = '';
           this.artist = '';
           this.description = '';
-          this.file = '';
-          this.$refs.file.value = '';
+          this.songFile = '';
+          this.$refs.songFile.value = '';
 
           this.titleIsValid = '';
           this.artistIsValid = '';
           this.descriptionIsValid = '';
-          this.fileIsValid = '';
+          this.songFileIsValid = '';
         });
     }
   },
@@ -163,7 +163,7 @@ export default {
         this.titleIsValid === true &&
         this.artistIsValid === true &&
         this.descriptionIsValid === true &&
-        this.fileIsValid === true
+        this.songFileIsValid === true
       ) {
         return true;
       } else {

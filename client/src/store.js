@@ -133,7 +133,9 @@ const store = createStore({
     },
     playPause(state, payload) {
       const { song, index } = payload;
-      if (state.audio.src === `http://localhost:3000/stream/${song.filename}`) {
+      if (
+        state.audio.src === `http://localhost:3000/stream/${song.songFilename}`
+      ) {
         if (state.audio.paused) {
           state.audio.play();
           state.paused = false;
@@ -142,7 +144,7 @@ const store = createStore({
           state.paused = true;
         }
       } else {
-        state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+        state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
         state.audio.play();
         state.currentSong = song;
         state.currentSongIndex = index;
@@ -178,7 +180,7 @@ const store = createStore({
       }
 
       const song = state.songs[state.currentSongIndex];
-      state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+      state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
       state.audio.play();
       state.currentSong = song;
       state.paused = false;
@@ -190,7 +192,7 @@ const store = createStore({
       }
 
       const song = state.songs[state.currentSongIndex];
-      state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+      state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
       state.audio.play();
       state.currentSong = song;
       state.paused = false;

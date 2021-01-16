@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage
-}).single('file');
+}).single('songFile');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -51,13 +51,13 @@ app.use(authRoutes);
 app.post('/uploadsong', (req, res) => {
   upload(req, res, (err) => {
     if (!err) {
-      const { title, artist, description, duration, path } = req.body;
+      const { title, artist, description, duration } = req.body;
       Song.create({
         title,
         artist,
         description,
         duration,
-        filename: req.file.filename.replace(/ /g, ''),
+        songFilename: req.file.filename.replace(/ /g, ''),
         path: req.file.path
       }).then(() => res.sendStatus(201));
     } else {
@@ -70,18 +70,9 @@ app.get('/songs', async (req, res) => {
   res.json(songs);
 });
 
-app.get('/stream/:filename', (req, res) => {
+app.get('/stream/:songfilename', (req, res) => {
   res.sendFile(
-    path.join(__dirname, './public/song_files/' + req.params.filename)
-  );
-});
-
-app.get('/song', (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      './public/song_files/1610195670040-Flashworx-NeverComeBack(extended).mp3'
-    )
+    path.join(__dirname, './public/song_files/' + req.params.songfilename)
   );
 });
 

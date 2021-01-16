@@ -5,7 +5,8 @@ const songSchema = new mongoose.Schema({
   artist: String,
   description: String,
   duration: String,
-  filename: String
+  songFilename: String,
+  imageFilename: String
 });
 
 const Song = mongoose.model('song', songSchema);
