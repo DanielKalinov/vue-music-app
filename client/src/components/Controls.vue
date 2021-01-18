@@ -1,8 +1,14 @@
 <template>
   <div v-if="user" id="controls">
     <div id="song-info">
-      <p>{{ currentSong ? currentSong.title : ' ' }}</p>
-      <p>{{ currentSong ? currentSong.artist : ' ' }}</p>
+      <img
+        v-if="currentSong"
+        :src="`http://localhost:3000/songimage/${currentSong.artworkFilename}`"
+      />
+      <div>
+        <p>{{ currentSong ? currentSong.title : ' ' }}</p>
+        <p>{{ currentSong ? currentSong.artist : ' ' }}</p>
+      </div>
     </div>
     <div id="progress-bar-container">
       <p style="width: 80px;">
@@ -85,7 +91,16 @@ export default {
   background-color: #212121;
 
   #song-info {
+    display: flex;
+    align-items: center;
     width: 240px;
+
+    img {
+      height: 60px;
+      width: 60px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
   }
 
   #progress-bar-container {
