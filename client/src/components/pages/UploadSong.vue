@@ -48,7 +48,7 @@
         </p>
       </div>
       <div class="form-group">
-        <label for="file">File</label>
+        <label for="songFile">Song file</label>
         <input
           type="file"
           name="songFile"
@@ -57,7 +57,20 @@
           @change="handleSongFileChange"
         />
         <p v-if="songFileIsValid === false" class="form-err-message">
-          Please select a file
+          Please select a song file
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="artworkFile">Artwork file</label>
+        <input
+          type="file"
+          name="artworkFile"
+          accept="image/*"
+          ref="artworkFile"
+          @change="handleArtworkFileChange"
+        />
+        <p v-if="artworkFileIsValid === false" class="form-err-message">
+          Please select an artwork file
         </p>
       </div>
       <button :disabled="!formIsValid" class="button primary-btn submit-btn">
@@ -76,10 +89,12 @@ export default {
       description: '',
       duration: null,
       songFile: null,
+      artworkFile: null,
       titleIsValid: '',
       artistIsValid: '',
       descriptionIsValid: '',
       songFileIsValid: '',
+      artworkFileIsValid: '',
       serverErr: ''
     };
   },
@@ -105,13 +120,6 @@ export default {
         this.descriptionIsValid = false;
       }
     },
-    validateSongFile() {
-      if (this.songFile) {
-        this.songFileIsValid = true;
-      } else {
-        this.songFileIsValid = false;
-      }
-    },
     handleSongFileChange() {
       this.songFile = this.$refs.songFile.files[0];
       const audio = new Audio();
@@ -132,6 +140,10 @@ export default {
       };
       this.songFileIsValid = true;
     },
+    handleArtworkFileChange() {
+      this.artworkFile = this.$refs.artworkFile.files[0];
+      this.artworkFileIsValid = true;
+    },
     uploadSong() {
       const formData = new FormData();
       formData.append('title', this.title);
@@ -139,6 +151,7 @@ export default {
       formData.append('description', this.description);
       formData.append('duration', this.duration);
       formData.append('songFile', this.songFile);
+      formData.append('artworkFile', this.artworkFile);
       this.$store
         .dispatch('uploadSong', formData)
         .then((res) => console.log(res))
@@ -148,7 +161,10 @@ export default {
           this.artist = '';
           this.description = '';
           this.songFile = '';
+          this.artworkFile = '';
+
           this.$refs.songFile.value = '';
+          this.$refs.artworkFile.value = '';
 
           this.titleIsValid = '';
           this.artistIsValid = '';
@@ -163,7 +179,8 @@ export default {
         this.titleIsValid === true &&
         this.artistIsValid === true &&
         this.descriptionIsValid === true &&
-        this.songFileIsValid === true
+        this.songFileIsValid === true &&
+        this.artworkFileIsValid === true
       ) {
         return true;
       } else {

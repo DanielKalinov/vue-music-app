@@ -80,7 +80,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   background-color: #212121;
 

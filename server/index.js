@@ -16,7 +16,13 @@ const sessionStore = new MongoStore({
 });
 
 const storage = multer.diskStorage({
-  destination: './public/song_files',
+  destination: (req, file, cb) => {
+    if (file.fieldname === 'songFile') {
+      cb(null, './public/song_files');
+    } else if (file.fieldname === 'artworkFile') {
+      cb(null, './public/artwork_files');
+    }
+  },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname.replace(/ /g, ''));
   }
@@ -24,7 +30,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage
-}).single('songFile');
+}).fields([
+  { name: 'songFile', maxCount: 1 },
+  { name: 'artworkFile', maxCount: 1 }
+]);
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -48,22 +57,22 @@ app.use(
   })
 );
 app.use(authRoutes);
-app.post('/uploadsong', (req, res) => {
-  upload(req, res, (err) => {
-    if (!err) {
-      const { title, artist, description, duration } = req.body;
-      Song.create({
-        title,
-        artist,
-        description,
-        duration,
-        songFilename: req.file.filename.replace(/ /g, ''),
-        path: req.file.path
-      }).then(() => res.sendStatus(201));
-    } else {
-      res.status(500).json('Something went wrong');
-    }
-  });
+app.post('/uploadsong', upload, async (req, res) => {
+  try {
+    const { title, artist, description, duration } = req.body;
+    await Song.create({
+      title,
+      artist,
+      description,
+      duration,
+      songFilename: req.files.songFile[0].filename.replace(/ /g, ''),
+      artworkFilename: req.files.artworkFile[0].filename.replace(/ /g, '')
+    });
+
+    res.sendStatus(201);
+  } catch (err) {
+    res.status(500).json('Something went wrong');
+  }
 });
 app.get('/songs', async (req, res) => {
   const songs = await Song.find();
@@ -73,6 +82,12 @@ app.get('/songs', async (req, res) => {
 app.get('/stream/:songfilename', (req, res) => {
   res.sendFile(
     path.join(__dirname, './public/song_files/' + req.params.songfilename)
+  );
+});
+
+app.get('/songimage/:artworkfilename', (req, res) => {
+  res.sendFile(
+    path.join(__dirname, './public/artwork_files/' + req.params.artworkfilename)
   );
 });
 

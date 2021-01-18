@@ -23,7 +23,7 @@ module.exports.signUp = async (req, res) => {
     ) {
       res.status(409).json(err.message);
     } else {
-      res.status(500).json('Something went wrong. Please try again later');
+      res.status(500).json('Something went wrong');
     }
   }
 };
@@ -39,7 +39,7 @@ module.exports.logIn = async (req, res) => {
     if (err.message === 'Incorrect email or password') {
       res.status(401).json(err.message);
     } else {
-      res.status(500).json('Something went wrong. Please try again later');
+      res.status(500).json('Something went wrong');
     }
   }
 };
