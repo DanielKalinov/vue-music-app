@@ -92,7 +92,9 @@ export default {
   margin: auto;
   padding: 10px;
   width: 100%;
-  background-color: #212121;
+  background-color: rgba($color: #212121, $alpha: 0.8);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px 2px rgba($color: #000, $alpha: 0.4);
 
   #controls-song-metainfo {
     display: flex;

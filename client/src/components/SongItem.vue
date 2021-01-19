@@ -17,7 +17,14 @@
             :src="`http://localhost:3000/songimage/${song.artworkFilename}`"
           />
           <div class="song-item-info">
-            <p class="song-item-title">{{ song.title }}</p>
+            <p
+              class="song-item-title"
+              :class="{
+                'active-song-item': currentSong && currentSong._id === song._id
+              }"
+            >
+              {{ song.title }}
+            </p>
             <p class="song-item-artist">{{ song.artist }}</p>
           </div>
         </div>
@@ -70,6 +77,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/css/styles.scss';
+
 .song-item {
   display: inline-block;
   margin: 10px;
@@ -108,6 +117,7 @@ export default {
         height: 140px;
         width: 140px;
         object-fit: cover;
+        box-shadow: 0 4px 10px 2px rgba($color: black, $alpha: 0.4);
       }
 
       .song-item-metainfo {
@@ -131,15 +141,19 @@ export default {
         padding: 10px;
         font-size: 40px;
         cursor: pointer;
-        background-color: #64b5f6;
+        background-color: $primary;
         color: #212121;
         transition: all 0.1s ease-in-out;
 
         &:hover {
-          background-color: lighten($color: #64b5f6, $amount: 10);
+          background-color: lighten($color: $primary, $amount: 10);
         }
       }
     }
   }
+}
+
+.active-song-item {
+  color: $primary;
 }
 </style>
