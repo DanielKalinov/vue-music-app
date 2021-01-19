@@ -1,13 +1,17 @@
 <template>
   <div v-if="user" id="controls">
-    <div id="song-info">
+    <div id="controls-song-metainfo">
       <img
         v-if="currentSong"
         :src="`http://localhost:3000/songimage/${currentSong.artworkFilename}`"
       />
-      <div>
-        <p>{{ currentSong ? currentSong.title : ' ' }}</p>
-        <p>{{ currentSong ? currentSong.artist : ' ' }}</p>
+      <div id="controls-song-info">
+        <p id="controls-song-title">
+          {{ currentSong ? currentSong.title : ' ' }}
+        </p>
+        <p id="controls-song-artist">
+          {{ currentSong ? currentSong.artist : ' ' }}
+        </p>
       </div>
     </div>
     <div id="progress-bar-container">
@@ -28,7 +32,7 @@
         {{ currentSong ? currentSong.duration : '0:00' }}
       </p>
     </div>
-    <div id="buttons">
+    <div id="controls-buttons">
       <i class="material-icons" @click="skipPreviousControls">skip_previous</i>
       <i class="material-icons" @click="playPauseControls">
         {{ paused ? 'play_arrow' : 'pause' }}
@@ -90,16 +94,27 @@ export default {
   width: 100%;
   background-color: #212121;
 
-  #song-info {
+  #controls-song-metainfo {
     display: flex;
     align-items: center;
-    width: 240px;
+    width: 340px;
 
     img {
       height: 60px;
       width: 60px;
       object-fit: cover;
       margin-right: 10px;
+    }
+
+    #controls-song-info {
+      #controls-song-title {
+        font-weight: bold;
+      }
+
+      #controls-song-artist {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
     }
   }
 
@@ -187,7 +202,7 @@ export default {
     }
   }
 
-  #buttons {
+  #controls-buttons {
     i {
       border-radius: 6px;
       padding: 10px;
@@ -200,9 +215,5 @@ export default {
       }
     }
   }
-}
-
-.hidden-controls-container {
-  visibility: hidden;
 }
 </style>

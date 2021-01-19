@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -150,6 +152,7 @@ export default {
       formData.append('artist', this.artist);
       formData.append('description', this.description);
       formData.append('duration', this.duration);
+      formData.append('author', this.user.username);
       formData.append('songFile', this.songFile);
       formData.append('artworkFile', this.artworkFile);
       this.$store
@@ -174,6 +177,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['user']),
     formIsValid() {
       if (
         this.titleIsValid === true &&

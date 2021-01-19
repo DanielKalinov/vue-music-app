@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    <h1>Home</h1>
     <SongList @play="onPlay" />
   </div>
 </template>

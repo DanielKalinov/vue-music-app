@@ -13,7 +13,7 @@ const store = createStore({
       audio: new Audio(),
       currentSong: null,
       currentSongIndex: null,
-      paused: false,
+      paused: true,
       loading: true
     };
   },

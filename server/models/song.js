@@ -5,6 +5,8 @@ const songSchema = new mongoose.Schema({
   artist: String,
   description: String,
   duration: String,
+  date: Date,
+  author: String,
   songFilename: String,
   artworkFilename: String
 });

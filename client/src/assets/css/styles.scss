@@ -8,6 +8,7 @@ $danger: #ef5350;
   padding: 0;
   box-sizing: border-box;
   color: #fafafa;
+  user-select: none;
 
   &:not(i) {
     font-family: 'Roboto', sans-serif;

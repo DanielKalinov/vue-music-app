@@ -59,12 +59,14 @@ app.use(
 app.use(authRoutes);
 app.post('/uploadsong', upload, async (req, res) => {
   try {
-    const { title, artist, description, duration } = req.body;
+    const { title, artist, description, duration, author } = req.body;
     await Song.create({
       title,
       artist,
       description,
       duration,
+      date: new Date(),
+      author,
       songFilename: req.files.songFile[0].filename.replace(/ /g, ''),
       artworkFilename: req.files.artworkFile[0].filename.replace(/ /g, '')
     });

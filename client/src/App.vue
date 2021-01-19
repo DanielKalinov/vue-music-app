@@ -61,7 +61,7 @@ export default {
 <style lang="scss">
 #app {
   margin: auto;
-  max-width: 960px;
+  max-width: 640px;
 
   #header-offset {
     margin-top: 61px;

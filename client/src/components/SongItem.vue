@@ -1,14 +1,33 @@
 <template>
-  <div
-    class="song-item"
-    :class="{ 'active-song-item': isActive }"
-    @click="playPause(song)"
-  >
-    <div>
-      <p>{{ song.title }}</p>
-      <p>{{ song.artist }}</p>
+  <div class="song-item" :class="{ 'active-song-item': isActive }">
+    <div class="song-item-header">
+      <div class="song-item-post-info">
+        <i class="material-icons">account_circle</i>
+        <div>
+          <p>{{ song.author }}</p>
+          <p>{{ date }}</p>
+        </div>
+      </div>
     </div>
-    <p>{{ song.duration }}</p>
+    <div class="song-item-main">
+      <p class="song-item-description">{{ song.description }}</p>
+      <div class="song-item-player">
+        <div class="song-item-metainfo">
+          <img
+            :src="`http://localhost:3000/songimage/${song.artworkFilename}`"
+          />
+          <div class="song-item-info">
+            <p class="song-item-title">{{ song.title }}</p>
+            <p class="song-item-artist">{{ song.artist }}</p>
+          </div>
+        </div>
+        <i
+          class="material-icons song-item-play-pause-btn"
+          @click="playPause(song)"
+          >{{ playPauseButton }}</i
+        >
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,12 +42,27 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSong']),
+    ...mapGetters(['currentSong', 'paused']),
     isActive() {
       if (this.currentSong && this.currentSong._id === this.song._id) {
         return true;
       } else {
         return false;
+      }
+    },
+    date() {
+      const date = new Date(this.song.date);
+      return date.toDateString();
+    },
+    playPauseButton() {
+      if (this.currentSong === this.song) {
+        if (this.paused) {
+          return 'play_arrow';
+        } else {
+          return 'pause';
+        }
+      } else {
+        return 'play_arrow';
       }
     }
   }
@@ -37,23 +71,75 @@ export default {
 
 <style lang="scss" scoped>
 .song-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: solid 1px #212121;
+  display: inline-block;
+  margin: 10px;
+  width: 100%;
   padding: 20px;
-  cursor: pointer;
+  background-color: #212121;
+  border-radius: 6px;
 
-  &:hover {
-    background-color: #212121;
+  .song-item-header {
+    .song-item-post-info {
+      display: flex;
+      align-items: center;
+    }
+    i {
+      font-size: 40px;
+      margin-right: 10px;
+    }
   }
-}
 
-.active-song-item {
-  background-color: #424242;
+  .song-item-main {
+    .song-item-description {
+      margin: 20px 0;
+    }
 
-  &:hover {
-    background-color: #424242;
+    .song-item-player {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: solid 1px #424242;
+      border-radius: 6px;
+      padding: 20px;
+
+      img {
+        margin-right: 20px;
+        border-radius: 6px;
+        height: 140px;
+        width: 140px;
+        object-fit: cover;
+      }
+
+      .song-item-metainfo {
+        display: flex;
+        align-items: center;
+
+        .song-item-info {
+          .song-item-title {
+            font-weight: bold;
+          }
+
+          .song-item-artist {
+            font-size: 14px;
+            color: #9e9e9e;
+          }
+        }
+      }
+
+      .song-item-play-pause-btn {
+        border-radius: 50%;
+        padding: 10px;
+        font-size: 40px;
+        cursor: pointer;
+        background-color: #64b5f6;
+        color: #212121;
+        transition: all 0.1s ease-in-out;
+
+        &:hover {
+          background-color: lighten($color: #64b5f6, $amount: 10);
+        }
+      }
+    }
   }
 }
 </style>
