@@ -3,7 +3,14 @@ const User = require('../models/user');
 module.exports.auth = async (req, res) => {
   try {
     const user = await User.findById(req.session.userID);
-    res.json({ user: { email: user.email, username: user.username } });
+    res.json({
+      user: {
+        userID: user._id,
+        email: user.email,
+        username: user.username,
+        favoriteSongs: user.favoriteSongs
+      }
+    });
   } catch (err) {
     res.status(401).json('User not authorized');
   }
@@ -30,7 +37,6 @@ module.exports.signUp = async (req, res) => {
 
 module.exports.logIn = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await User.logIn(email, password);
     req.session.userID = user._id;

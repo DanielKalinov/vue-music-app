@@ -95,8 +95,7 @@ const store = createStore({
       });
     },
     playPause(context, payload) {
-      const { song, index } = payload;
-      context.commit('playPause', { song, index });
+      context.commit('playPause', payload);
     },
     playPauseControls(context) {
       context.commit('playPauseControls');
@@ -106,6 +105,16 @@ const store = createStore({
     },
     skipNextControls(context) {
       context.commit('skipNextControls');
+    },
+    addToFavorites(context, payload) {
+      axios
+        .post(`http://localhost:3000/addfavorite/${payload.song._id}`, {
+          song: payload.song,
+          userID: payload.userID
+        })
+        .then((res) => {
+          context.commit('addToFavorites', { user: res.data });
+        });
     }
   },
   mutations: {
@@ -196,6 +205,9 @@ const store = createStore({
       state.audio.play();
       state.currentSong = song;
       state.paused = false;
+    },
+    addToFavorites(state, payload) {
+      state.user = payload.user;
     }
   },
   getters: {

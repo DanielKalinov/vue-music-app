@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 const multer = require('multer');
 const path = require('path');
 const Song = require('./models/song');
+const User = require('./models/user');
 
 const sessionStore = new MongoStore({
   mongooseConnection: mongoose.connection,
@@ -91,6 +92,17 @@ app.get('/songimage/:artworkfilename', (req, res) => {
   res.sendFile(
     path.join(__dirname, './public/artwork_files/' + req.params.artworkfilename)
   );
+});
+
+app.post('/addfavorite/:id', async (req, res) => {
+  const { song, userID } = req.body;
+  const user = await User.addToFavorites(song, userID);
+  res.status(200).json({
+    userID: user._id,
+    email: user.email,
+    username: user.username,
+    favoriteSongs: user.favoriteSongs
+  });
 });
 
 mongoose.connect(

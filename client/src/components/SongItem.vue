@@ -35,21 +35,30 @@
         >
       </div>
     </div>
+    <div class="song-item-actions">
+      <i
+        class="material-icons song-item-favorite-btn"
+        :class="{ 'favorite-btn-liked': likedd }"
+        @click="addToFavorites({ song, userID: user.userID })"
+        >favorite</i
+      >
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   props: ['song', 'index'],
   methods: {
+    ...mapActions(['addToFavorites']),
     playPause(song) {
       this.$store.dispatch('playPause', { song, index: this.index });
       this.$emit('play');
     }
   },
   computed: {
-    ...mapGetters(['currentSong', 'paused']),
+    ...mapGetters(['currentSong', 'paused', 'user']),
     isActive() {
       if (this.currentSong && this.currentSong._id === this.song._id) {
         return true;
@@ -60,6 +69,16 @@ export default {
     date() {
       const date = new Date(this.song.date);
       return date.toDateString();
+    },
+    likedd() {
+      const songIsFavorite = this.user.favoriteSongs.find(
+        (favoriteSong) => favoriteSong._id === this.song._id
+      );
+      if (songIsFavorite) {
+        return true;
+      } else {
+        return false;
+      }
     },
     playPauseButton() {
       if (this.currentSong === this.song) {
@@ -107,6 +126,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 20px;
       border: solid 1px #424242;
       border-radius: 6px;
       padding: 20px;
@@ -148,6 +168,33 @@ export default {
         &:hover {
           background-color: lighten($color: $primary, $amount: 10);
         }
+      }
+    }
+  }
+
+  .song-item-actions {
+    .song-item-favorite-btn {
+      border-radius: 50%;
+      padding: 10px;
+      color: #9e9e9e;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: #fafafa;
+      }
+
+      &:active {
+        transition: 0s;
+        background-color: rgba($color: $primary, $alpha: 0.4);
+      }
+    }
+
+    .favorite-btn-liked {
+      color: $primary;
+
+      &:hover {
+        color: $primary;
       }
     }
   }
