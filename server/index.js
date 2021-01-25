@@ -98,11 +98,18 @@ app.post('/addfavorite/:id', async (req, res) => {
   const { song, userID } = req.body;
   const user = await User.addToFavorites(song, userID);
   res.status(200).json({
-    userID: user._id,
-    email: user.email,
-    username: user.username,
-    favoriteSongs: user.favoriteSongs
+    user: {
+      userID: user._id,
+      email: user.email,
+      username: user.username,
+      favoriteSongs: user.favoriteSongs
+    }
   });
+});
+
+app.delete('/deletesong/:id', async (req, res) => {
+  const songs = await Song.deleteSong(req.params.id);
+  res.status(200).json({ songs });
 });
 
 mongoose.connect(

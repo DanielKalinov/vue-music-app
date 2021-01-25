@@ -38,9 +38,14 @@
     <div class="song-item-actions">
       <i
         class="material-icons song-item-favorite-btn"
-        :class="{ 'favorite-btn-liked': likedd }"
+        :class="{ 'favorite-btn-liked': liked }"
         @click="addToFavorites({ song, userID: user.userID })"
         >favorite</i
+      >
+      <i
+        class="material-icons song-itme-delete-btn"
+        @click="deleteSong({ id: song._id })"
+        >delete</i
       >
     </div>
   </div>
@@ -51,7 +56,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   props: ['song', 'index'],
   methods: {
-    ...mapActions(['addToFavorites']),
+    ...mapActions(['addToFavorites', 'deleteSong']),
     playPause(song) {
       this.$store.dispatch('playPause', { song, index: this.index });
       this.$emit('play');
@@ -70,7 +75,7 @@ export default {
       const date = new Date(this.song.date);
       return date.toDateString();
     },
-    likedd() {
+    liked() {
       const songIsFavorite = this.user.favoriteSongs.find(
         (favoriteSong) => favoriteSong._id === this.song._id
       );
@@ -173,7 +178,7 @@ export default {
   }
 
   .song-item-actions {
-    .song-item-favorite-btn {
+    i {
       border-radius: 50%;
       padding: 10px;
       color: #9e9e9e;
@@ -195,6 +200,14 @@ export default {
 
       &:hover {
         color: $primary;
+      }
+    }
+
+    .song-itme-delete-btn {
+      color: #e57373;
+
+      &:hover {
+        color: #ffcdd2;
       }
     }
   }

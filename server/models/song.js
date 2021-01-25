@@ -11,6 +11,12 @@ const songSchema = new mongoose.Schema({
   artworkFilename: String
 });
 
+songSchema.statics.deleteSong = async function (songID) {
+  await this.findByIdAndDelete({ _id: songID });
+  const songs = await this.find();
+  return songs;
+};
+
 const Song = mongoose.model('song', songSchema);
 
 module.exports = Song;

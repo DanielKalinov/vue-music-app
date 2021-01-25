@@ -113,7 +113,14 @@ const store = createStore({
           userID: payload.userID
         })
         .then((res) => {
-          context.commit('addToFavorites', { user: res.data });
+          context.commit('addToFavorites', { user: res.data.user });
+        });
+    },
+    deleteSong(context, payload) {
+      axios
+        .delete(`http://localhost:3000/deletesong/${payload.id}`)
+        .then((res) => {
+          context.commit('deleteSong', { songs: res.data.songs });
         });
     }
   },
@@ -208,6 +215,9 @@ const store = createStore({
     },
     addToFavorites(state, payload) {
       state.user = payload.user;
+    },
+    deleteSong(state, payload) {
+      state.songs = payload.songs;
     }
   },
   getters: {
