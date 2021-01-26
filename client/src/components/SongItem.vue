@@ -42,11 +42,86 @@
         @click="addToFavorites({ song, userID: user.userID })"
         >favorite</i
       >
+      <i class="material-icons" @click="openCommentsWindow(song._id)"
+        >comment</i
+      >
       <i
+        v-if="song.author === user.username"
         class="material-icons song-itme-delete-btn"
         @click="deleteSong({ id: song._id })"
         >delete</i
       >
+    </div>
+    <div
+      v-if="commentsWindowOpen"
+      class="song-item-comments-window-container"
+      @click="closeCommentsWindow"
+      ref="commentsWindowContainer"
+    >
+      <div class="song-item-comments-window" ref="commentsWindow">
+        <ul class="song-item-comment-list">
+          <li class="song-item-comment-list-item">
+            <div class="song-item-comment-info">
+              <i class="material-icons">account_circle</i>
+              <div>
+                <p>Username</p>
+                <p>Time</p>
+              </div>
+            </div>
+            <p class="song-item-comment-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
+              itaque quibusdam consequatur vitae placeat porro explicabo
+              voluptatem distinctio autem perferendis doloribus.
+            </p>
+          </li>
+          <li class="song-item-comment-list-item">
+            <div class="song-item-comment-info">
+              <i class="material-icons">account_circle</i>
+              <div>
+                <p>Username</p>
+                <p>Time</p>
+              </div>
+            </div>
+            <p class="song-item-comment-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
+              itaque quibusdam consequatur vitae placeat porro explicabo
+              voluptatem distinctio autem perferendis doloribus.
+            </p>
+          </li>
+          <li class="song-item-comment-list-item">
+            <div class="song-item-comment-info">
+              <i class="material-icons">account_circle</i>
+              <div>
+                <p>Username</p>
+                <p>Time</p>
+              </div>
+            </div>
+            <p class="song-item-comment-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
+              itaque quibusdam consequatur vitae placeat porro explicabo
+              voluptatem distinctio autem perferendis doloribus.
+            </p>
+          </li>
+          <li class="song-item-comment-list-item">
+            <div class="song-item-comment-info">
+              <i class="material-icons">account_circle</i>
+              <div>
+                <p>Username</p>
+                <p>Time</p>
+              </div>
+            </div>
+            <p class="song-item-comment-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
+              itaque quibusdam consequatur vitae placeat porro explicabo
+              voluptatem distinctio autem perferendis doloribus.
+            </p>
+          </li>
+        </ul>
+        <div class="comments-form-group">
+          <label for="comment">Add a Comment...</label>
+          <textarea name="comment" cols="30" rows="1"></textarea>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,11 +130,30 @@
 import { mapActions, mapGetters } from 'vuex';
 export default {
   props: ['song', 'index'],
+  data() {
+    return {
+      commentsWindowOpen: false
+    };
+  },
   methods: {
     ...mapActions(['addToFavorites', 'deleteSong']),
     playPause(song) {
       this.$store.dispatch('playPause', { song, index: this.index });
       this.$emit('play');
+    },
+    openCommentsWindow() {
+      if (this.commentsWindowOpen) {
+        this.commentsWindowOpen = false;
+        document.body.style.overflow = 'scroll';
+      } else {
+        this.commentsWindowOpen = true;
+        document.body.style.overflow = 'hidden';
+      }
+    },
+    closeCommentsWindow(e) {
+      if (e.target === this.$refs.commentsWindowContainer) {
+        this.commentsWindowOpen = false;
+      }
     }
   },
   computed: {
@@ -96,124 +190,16 @@ export default {
         return 'play_arrow';
       }
     }
+  },
+  created() {
+    window.addEventListener('click', this.closeCommentsWindow);
+  },
+  unmounted() {
+    window.removeEventListener('click', this.closeCommentsWindow);
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/styles.scss';
-
-.song-item {
-  display: inline-block;
-  margin: 10px;
-  width: 100%;
-  padding: 20px;
-  background-color: #212121;
-  border-radius: 6px;
-
-  .song-item-header {
-    .song-item-post-info {
-      display: flex;
-      align-items: center;
-    }
-    i {
-      font-size: 40px;
-      margin-right: 10px;
-    }
-  }
-
-  .song-item-main {
-    .song-item-description {
-      margin: 20px 0;
-    }
-
-    .song-item-player {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      border: solid 1px #424242;
-      border-radius: 6px;
-      padding: 20px;
-
-      img {
-        margin-right: 20px;
-        border-radius: 6px;
-        height: 140px;
-        width: 140px;
-        object-fit: cover;
-        box-shadow: 0 4px 10px 2px rgba($color: black, $alpha: 0.4);
-      }
-
-      .song-item-metainfo {
-        display: flex;
-        align-items: center;
-
-        .song-item-info {
-          .song-item-title {
-            font-weight: bold;
-          }
-
-          .song-item-artist {
-            font-size: 14px;
-            color: #9e9e9e;
-          }
-        }
-      }
-
-      .song-item-play-pause-btn {
-        border-radius: 50%;
-        padding: 10px;
-        font-size: 40px;
-        cursor: pointer;
-        background-color: $primary;
-        color: #212121;
-        transition: all 0.1s ease-in-out;
-
-        &:hover {
-          background-color: lighten($color: $primary, $amount: 10);
-        }
-      }
-    }
-  }
-
-  .song-item-actions {
-    i {
-      border-radius: 50%;
-      padding: 10px;
-      color: #9e9e9e;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        color: #fafafa;
-      }
-
-      &:active {
-        transition: 0s;
-        background-color: rgba($color: $primary, $alpha: 0.4);
-      }
-    }
-
-    .favorite-btn-liked {
-      color: $primary;
-
-      &:hover {
-        color: $primary;
-      }
-    }
-
-    .song-itme-delete-btn {
-      color: #e57373;
-
-      &:hover {
-        color: #ffcdd2;
-      }
-    }
-  }
-}
-
-.active-song-item {
-  color: $primary;
-}
+@import './SongItem.scss';
 </style>
