@@ -1,6 +1,7 @@
 <template>
   <div id="add-song">
     <form
+      class="form"
       action="/upload"
       method="POST"
       enctype="multipart/form-data"
@@ -73,7 +74,7 @@
           Please select an artwork file
         </p>
       </div>
-      <button :disabled="!formIsValid" class="button primary-btn submit-btn">
+      <button class="button primary-btn submit-btn" :disabled="!formIsValid">
         Submit
       </button>
     </form>

@@ -123,7 +123,7 @@
   height: 100%;
   width: 100%;
   background-color: rgba($color: black, $alpha: 0.2);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(40px);
 
   .song-item-comments-window {
     width: 100%;
@@ -133,7 +133,8 @@
     background: #212121;
 
     .song-item-comment-list {
-      height: 300px;
+      height: 100%;
+      max-height: 440px;
       list-style: none;
       overflow-y: scroll;
 
@@ -155,12 +156,16 @@
     }
 
     .comments-form-group {
+      display: flex;
+      flex-direction: column;
+
       label {
         display: inline-block;
         margin-bottom: 10px;
       }
 
       textarea {
+        margin-bottom: 10px;
         border: none;
         border-radius: 6px;
         padding: 10px;
@@ -175,6 +180,20 @@
 
         &:focus {
           box-shadow: 0 0 0 1px #fafafa;
+        }
+      }
+
+      button {
+        margin-left: auto;
+
+        &:disabled {
+          background-color: #424242;
+          color: #616161;
+          cursor: default;
+
+          &:hover {
+            background-color: #424242;
+          }
         }
       }
     }

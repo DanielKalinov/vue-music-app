@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <form @submit.prevent="onSubmit">
+    <form class="form" @submit.prevent="onSubmit">
       <h2>Login</h2>
       <div v-if="serverErr" class="server-err-message">{{ serverErr }}</div>
       <div class="form-group">

@@ -74,53 +74,24 @@
               voluptatem distinctio autem perferendis doloribus.
             </p>
           </li>
-          <li class="song-item-comment-list-item">
-            <div class="song-item-comment-info">
-              <i class="material-icons">account_circle</i>
-              <div>
-                <p>Username</p>
-                <p>Time</p>
-              </div>
-            </div>
-            <p class="song-item-comment-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
-              itaque quibusdam consequatur vitae placeat porro explicabo
-              voluptatem distinctio autem perferendis doloribus.
-            </p>
-          </li>
-          <li class="song-item-comment-list-item">
-            <div class="song-item-comment-info">
-              <i class="material-icons">account_circle</i>
-              <div>
-                <p>Username</p>
-                <p>Time</p>
-              </div>
-            </div>
-            <p class="song-item-comment-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
-              itaque quibusdam consequatur vitae placeat porro explicabo
-              voluptatem distinctio autem perferendis doloribus.
-            </p>
-          </li>
-          <li class="song-item-comment-list-item">
-            <div class="song-item-comment-info">
-              <i class="material-icons">account_circle</i>
-              <div>
-                <p>Username</p>
-                <p>Time</p>
-              </div>
-            </div>
-            <p class="song-item-comment-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
-              itaque quibusdam consequatur vitae placeat porro explicabo
-              voluptatem distinctio autem perferendis doloribus.
-            </p>
-          </li>
         </ul>
-        <div class="comments-form-group">
-          <label for="comment">Add a Comment...</label>
-          <textarea name="comment" cols="30" rows="1"></textarea>
-        </div>
+        <form class="comments-form-group" @submit.prevent="onSubmit">
+          <label for="comment">Add a comment...</label>
+          <textarea
+            name="comment"
+            cols="30"
+            rows="1"
+            v-model="comment"
+            @blur="validateComment"
+          ></textarea>
+          <button
+            type="submit"
+            class="button primary-btn"
+            :disabled="!commentIsValid"
+          >
+            Comment
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -132,7 +103,9 @@ export default {
   props: ['song', 'index'],
   data() {
     return {
-      commentsWindowOpen: false
+      comment: '',
+      commentsWindowOpen: false,
+      commentIsValid: ''
     };
   },
   methods: {
@@ -154,6 +127,16 @@ export default {
       if (e.target === this.$refs.commentsWindowContainer) {
         this.commentsWindowOpen = false;
       }
+    },
+    validateComment() {
+      if (this.comment) {
+        this.commentIsValid = true;
+      } else {
+        this.commentIsValid = false;
+      }
+    },
+    onSubmit() {
+      console.log('Submit');
     }
   },
   computed: {

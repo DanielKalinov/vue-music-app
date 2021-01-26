@@ -8,7 +8,6 @@ $danger: #ef5350;
   padding: 0;
   box-sizing: border-box;
   color: #fafafa;
-  user-select: none;
 
   &:not(i) {
     font-family: 'Roboto', sans-serif;
@@ -45,7 +44,7 @@ body {
   border: solid 1px #fafafa;
 }
 
-form {
+.form {
   border-radius: 6px;
   margin-top: 100px;
   padding: 20px;
