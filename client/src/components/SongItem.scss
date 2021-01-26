@@ -9,13 +9,35 @@
   border-radius: 6px;
 
   .song-item-header {
+    display: flex;
+    align-items: center;
+
     .song-item-post-info {
       display: flex;
       align-items: center;
+      margin-right: auto;
+
+      .song-item-account-icon {
+        margin-right: 10px;
+        font-size: 40px;
+      }
     }
-    i {
-      font-size: 40px;
-      margin-right: 10px;
+
+    .song-item-edit-icon {
+      border-radius: 50%;
+      padding: 10px;
+      color: #9e9e9e;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: #fafafa;
+      }
+
+      &:active {
+        transition: 0s;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+      }
     }
   }
 

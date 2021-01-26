@@ -8,7 +8,7 @@
       @submit.prevent="uploadSong"
       ref="form"
     >
-      <h2>Upload a Song</h2>
+      <h2>Upload a song</h2>
       <div v-if="serverErr" class="server-err-message">{{ serverErr }}</div>
       <div class="form-group">
         <label for="title">Title</label>
@@ -37,11 +37,12 @@
         </p>
       </div>
       <div class="form-group">
-        <label for="description">Your thoughts ...</label>
+        <label for="description">Your thoughts...</label>
         <textarea
           name="description"
           rows="4"
           v-model="description"
+          autocomplete="off"
           @blur="validateDescription"
         />
         <p v-if="descriptionIsValid === false" class="form-err-message">

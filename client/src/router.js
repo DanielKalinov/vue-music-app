@@ -4,6 +4,7 @@ import UploadSong from './components/pages/UploadSong';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Profile from './components/pages/Profile';
+import EditSong from './components/pages/EditSong';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -11,8 +12,7 @@ const router = createRouter({
     { path: '/', component: Home },
     {
       path: '/uploadsong',
-      component: UploadSong,
-      meta: { requiresAuth: true }
+      component: UploadSong
     },
     {
       path: '/signup',
@@ -22,7 +22,8 @@ const router = createRouter({
       path: '/login',
       component: Login
     },
-    { path: '/profile', component: Profile, meta: { requiresAuth: true } }
+    { path: '/profile', component: Profile },
+    { path: '/editsong/:id', component: EditSong }
   ]
 });
 

@@ -112,6 +112,12 @@ app.delete('/deletesong/:id', async (req, res) => {
   res.status(200).json({ songs });
 });
 
+app.get('/getsong/:id', async (req, res) => {
+  const song = await Song.getSong(req.params.id);
+  const { title, artist, description } = song;
+  res.status(200).json({ song: { title, artist, description } });
+});
+
 mongoose.connect(
   process.env.MONGODB_CONNECTION,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },

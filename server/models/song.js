@@ -11,6 +11,11 @@ const songSchema = new mongoose.Schema({
   artworkFilename: String
 });
 
+songSchema.statics.getSong = async function (songID) {
+  const song = await this.findById({ _id: songID });
+  return song;
+};
+
 songSchema.statics.deleteSong = async function (songID) {
   await this.findByIdAndDelete({ _id: songID });
   const songs = await this.find();

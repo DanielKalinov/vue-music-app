@@ -79,6 +79,7 @@ body {
       padding: 10px;
       width: 100%;
       background-color: #424242;
+      font-size: 16px;
       transition: all 0.1s ease-in-out;
 
       &:hover {
@@ -95,8 +96,9 @@ body {
       border-radius: 6px;
       padding: 10px;
       width: 100%;
-      resize: none;
+      font-size: 16px;
       background-color: #424242;
+      resize: none;
       transition: all 0.1s ease-in-out;
 
       &:hover {
@@ -126,6 +128,10 @@ body {
       }
     }
   }
+}
+
+i {
+  user-select: none;
 }
 
 .spinner:before {

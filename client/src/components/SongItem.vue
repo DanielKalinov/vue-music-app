@@ -2,12 +2,15 @@
   <div class="song-item" :class="{ 'active-song-item': isActive }">
     <div class="song-item-header">
       <div class="song-item-post-info">
-        <i class="material-icons">account_circle</i>
+        <i class="material-icons song-item-account-icon">account_circle</i>
         <div>
           <p>{{ song.author }}</p>
           <p>{{ date }}</p>
         </div>
       </div>
+      <i class="material-icons song-item-edit-icon" @click="navigateToEditPage"
+        >create</i
+      >
     </div>
     <div class="song-item-main">
       <p class="song-item-description">{{ song.description }}</p>
@@ -54,6 +57,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: ['song', 'index'],
   methods: {
@@ -61,6 +65,11 @@ export default {
     playPause(song) {
       this.$store.dispatch('playPause', { song, index: this.index });
       this.$emit('play');
+    },
+    navigateToEditPage() {
+      this.$router.push({
+        path: `/editsong/${this.song._id}`
+      });
     }
   },
   computed: {
