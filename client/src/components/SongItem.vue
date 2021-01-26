@@ -42,57 +42,12 @@
         @click="addToFavorites({ song, userID: user.userID })"
         >favorite</i
       >
-      <i class="material-icons" @click="openCommentsWindow(song._id)"
-        >comment</i
-      >
       <i
         v-if="song.author === user.username"
         class="material-icons song-itme-delete-btn"
         @click="deleteSong({ id: song._id })"
         >delete</i
       >
-    </div>
-    <div
-      v-if="commentsWindowOpen"
-      class="song-item-comments-window-container"
-      @click="closeCommentsWindow"
-      ref="commentsWindowContainer"
-    >
-      <div class="song-item-comments-window" ref="commentsWindow">
-        <ul class="song-item-comment-list">
-          <li class="song-item-comment-list-item">
-            <div class="song-item-comment-info">
-              <i class="material-icons">account_circle</i>
-              <div>
-                <p>Username</p>
-                <p>Time</p>
-              </div>
-            </div>
-            <p class="song-item-comment-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore id
-              itaque quibusdam consequatur vitae placeat porro explicabo
-              voluptatem distinctio autem perferendis doloribus.
-            </p>
-          </li>
-        </ul>
-        <form class="comments-form-group" @submit.prevent="onSubmit">
-          <label for="comment">Add a comment...</label>
-          <textarea
-            name="comment"
-            cols="30"
-            rows="1"
-            v-model="comment"
-            @blur="validateComment"
-          ></textarea>
-          <button
-            type="submit"
-            class="button primary-btn"
-            :disabled="!commentIsValid"
-          >
-            Comment
-          </button>
-        </form>
-      </div>
     </div>
   </div>
 </template>
@@ -101,42 +56,11 @@
 import { mapActions, mapGetters } from 'vuex';
 export default {
   props: ['song', 'index'],
-  data() {
-    return {
-      comment: '',
-      commentsWindowOpen: false,
-      commentIsValid: ''
-    };
-  },
   methods: {
     ...mapActions(['addToFavorites', 'deleteSong']),
     playPause(song) {
       this.$store.dispatch('playPause', { song, index: this.index });
       this.$emit('play');
-    },
-    openCommentsWindow() {
-      if (this.commentsWindowOpen) {
-        this.commentsWindowOpen = false;
-        document.body.style.overflow = 'scroll';
-      } else {
-        this.commentsWindowOpen = true;
-        document.body.style.overflow = 'hidden';
-      }
-    },
-    closeCommentsWindow(e) {
-      if (e.target === this.$refs.commentsWindowContainer) {
-        this.commentsWindowOpen = false;
-      }
-    },
-    validateComment() {
-      if (this.comment) {
-        this.commentIsValid = true;
-      } else {
-        this.commentIsValid = false;
-      }
-    },
-    onSubmit() {
-      console.log('Submit');
     }
   },
   computed: {
@@ -173,12 +97,6 @@ export default {
         return 'play_arrow';
       }
     }
-  },
-  created() {
-    window.addEventListener('click', this.closeCommentsWindow);
-  },
-  unmounted() {
-    window.removeEventListener('click', this.closeCommentsWindow);
   }
 };
 </script>

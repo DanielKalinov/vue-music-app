@@ -124,6 +124,7 @@ const store = createStore({
         });
     }
   },
+
   mutations: {
     auth(state, payload) {
       if (payload.user) {
