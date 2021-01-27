@@ -122,6 +122,14 @@ const store = createStore({
         .then((res) => {
           context.commit('deleteSong', { songs: res.data.songs });
         });
+    },
+    editSong(context, payload) {
+      const { song } = payload;
+      axios
+        .put(`http://localhost:3000/editsong/${song.songID}`, { song })
+        .then((res) => {
+          context.commit('editSong', { songs: res.data.songs });
+        });
     }
   },
 
@@ -218,6 +226,9 @@ const store = createStore({
       state.user = payload.user;
     },
     deleteSong(state, payload) {
+      state.songs = payload.songs;
+    },
+    editSong(state, payload) {
       state.songs = payload.songs;
     }
   },

@@ -11,6 +11,17 @@ const songSchema = new mongoose.Schema({
   artworkFilename: String
 });
 
+songSchema.statics.editSong = async function (song) {
+  const { songID, title, artist, description } = song;
+  await this.findByIdAndUpdate(
+    { _id: mongoose.Types.ObjectId(songID) },
+    { $set: { title, artist, description } }
+  );
+
+  const songs = await this.find();
+  return songs;
+};
+
 songSchema.statics.getSong = async function (songID) {
   const song = await this.findById({ _id: songID });
   return song;

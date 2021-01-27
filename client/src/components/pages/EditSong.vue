@@ -5,7 +5,9 @@
       action="/upload"
       method="POST"
       enctype="multipart/form-data"
-      @submit.prevent="uploadSong"
+      @submit.prevent="
+        editSong({ song: { songID, title, artist, description } })
+      "
       ref="form"
     >
       <h2>Edit your song</h2>
@@ -57,7 +59,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -65,13 +67,15 @@ export default {
       title: '',
       artist: '',
       description: '',
-      titleIsValid: '',
-      artistIsValid: '',
-      descriptionIsValid: '',
+      songID: '',
+      titleIsValid: true,
+      artistIsValid: true,
+      descriptionIsValid: true,
       serverErr: ''
     };
   },
   methods: {
+    ...mapActions(['editSong']),
     validateTitle() {
       if (this.title) {
         this.titleIsValid = true;
@@ -92,8 +96,7 @@ export default {
       } else {
         this.descriptionIsValid = false;
       }
-    },
-    editSong() {}
+    }
   },
   computed: {
     ...mapGetters(['user']),
@@ -112,10 +115,11 @@ export default {
   created() {
     const { id } = this.$route.params;
     this.$http.get(`http://localhost:3000/getsong/${id}`).then((res) => {
-      const { title, artist, description } = res.data.song;
+      const { title, artist, description, songID } = res.data.song;
       this.title = title;
       this.artist = artist;
       this.description = description;
+      this.songID = songID;
     });
   }
 };
