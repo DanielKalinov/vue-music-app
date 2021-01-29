@@ -65,7 +65,6 @@ export default {
     onInput(e) {
       const slider = e.currentTarget;
       this.audio.currentTime = this.audio.duration * (slider.value / 100);
-
       const color =
         'linear-gradient(90deg, rgb(100, 181, 246)' +
         slider.value +
@@ -83,6 +82,7 @@ export default {
 @import '../assets/css/styles.scss';
 
 #controls {
+  border-top: solid 1px #424242;
   position: fixed;
   bottom: 0;
   left: 0;

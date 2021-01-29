@@ -9,9 +9,11 @@ const store = createStore({
   state() {
     return {
       user: null,
-      songs: [],
+      allSongs: [],
+      favoriteSongs: [],
       audio: new Audio(),
       currentSong: null,
+      playlist: '',
       currentSongIndex: null,
       paused: true,
       loading: true
@@ -74,8 +76,8 @@ const store = createStore({
       });
     },
     fetchSongs(context) {
-      axios.get('http://localhost:3000/songs').then((res) => {
-        context.commit('fetchSongs', { songs: res.data });
+      axios.get(`${url}/songs`).then((res) => {
+        context.commit('fetchSongs', { allSongs: res.data });
       });
     },
     uploadSong(context, payload) {
@@ -108,7 +110,7 @@ const store = createStore({
     },
     addToFavorites(context, payload) {
       axios
-        .post(`http://localhost:3000/addfavorite/${payload.song._id}`, {
+        .post(`${url}/addfavorite/${payload.song._id}`, {
           song: payload.song,
           userID: payload.userID
         })
@@ -117,19 +119,15 @@ const store = createStore({
         });
     },
     deleteSong(context, payload) {
-      axios
-        .delete(`http://localhost:3000/deletesong/${payload.id}`)
-        .then((res) => {
-          context.commit('deleteSong', { songs: res.data.songs });
-        });
+      axios.delete(`${url}/deletesong/${payload.id}`).then((res) => {
+        context.commit('deleteSong', { allSongs: res.data.songs });
+      });
     },
     editSong(context, payload) {
       const { song } = payload;
-      axios
-        .put(`http://localhost:3000/editsong/${song.songID}`, { song })
-        .then((res) => {
-          context.commit('editSong', { songs: res.data.songs });
-        });
+      axios.put(`${url}/${song.songID}`, { song }).then((res) => {
+        context.commit('editSong', { allSongs: res.data.songs });
+      });
     }
   },
 
@@ -137,9 +135,11 @@ const store = createStore({
     auth(state, payload) {
       if (payload.user) {
         state.user = payload.user;
+        state.favoriteSongs = payload.user.favoriteSongs;
         state.loading = false;
       } else {
         state.user = null;
+        state.favoriteSongs = [];
         state.loading = false;
       }
     },
@@ -154,13 +154,11 @@ const store = createStore({
       router.replace('/login');
     },
     fetchSongs(state, payload) {
-      state.songs = payload.songs;
+      state.allSongs = payload.allSongs;
     },
     playPause(state, payload) {
-      const { song, index } = payload;
-      if (
-        state.audio.src === `http://localhost:3000/stream/${song.songFilename}`
-      ) {
+      const { song, index, playlist } = payload;
+      if (state.audio.src === `${url}/stream/${song.songFilename}`) {
         if (state.audio.paused) {
           state.audio.play();
           state.paused = false;
@@ -169,21 +167,22 @@ const store = createStore({
           state.paused = true;
         }
       } else {
-        state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
+        state.audio.src = `${url}/stream/${song.songFilename}`;
         state.audio.play();
         state.currentSong = song;
+        state.playlist = playlist;
         state.currentSongIndex = index;
         state.paused = false;
       }
 
       state.audio.onended = () => {
         state.currentSongIndex++;
-        if (state.currentSongIndex >= state.songs.length) {
+        if (state.currentSongIndex >= state[state.playlist].length) {
           state.currentSongIndex = 0;
         }
 
-        const song = state.songs[state.currentSongIndex];
-        state.audio.src = `http://localhost:3000/stream/${song.filename}`;
+        const song = state[state.playlist][state.currentSongIndex];
+        state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
         state.audio.play();
         state.currentSong = song;
         state.paused = false;
@@ -200,24 +199,27 @@ const store = createStore({
     },
     skipPreviousControls(state) {
       state.currentSongIndex--;
+
       if (state.currentSongIndex < 0) {
-        state.currentSongIndex = state.songs.length - 1;
+        state.currentSongIndex = state[state.playlist].length - 1;
       }
 
-      const song = state.songs[state.currentSongIndex];
-      state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
+      const song = state[state.playlist][state.currentSongIndex];
+      state.audio.src = `${url}/stream/${song.songFilename}`;
+
+      state.audio.src = `${url}/stream/${song.songFilename}`;
       state.audio.play();
       state.currentSong = song;
       state.paused = false;
     },
     skipNextControls(state) {
       state.currentSongIndex++;
-      if (state.currentSongIndex >= state.songs.length) {
+      if (state.currentSongIndex >= state[state.playlist].length) {
         state.currentSongIndex = 0;
       }
 
-      const song = state.songs[state.currentSongIndex];
-      state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
+      const song = state[state.playlist][state.currentSongIndex];
+      state.audio.src = `${url}/stream/${song.songFilename}`;
       state.audio.play();
       state.currentSong = song;
       state.paused = false;
@@ -239,8 +241,11 @@ const store = createStore({
     loading(state) {
       return state.loading;
     },
-    songs(state) {
-      return state.songs;
+    allSongs(state) {
+      return state.allSongs;
+    },
+    favoriteSongs(state) {
+      return state.favoriteSongs;
     },
     audio(state) {
       return state.audio;

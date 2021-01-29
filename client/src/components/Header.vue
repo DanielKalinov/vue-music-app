@@ -8,6 +8,9 @@
         <li>
           <router-link to="/uploadsong">Upload</router-link>
         </li>
+        <li>
+          <router-link to="/favorites">Favorites</router-link>
+        </li>
       </ul>
       <ul id="auth-links">
         <li>

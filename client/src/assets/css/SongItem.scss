@@ -1,0 +1,141 @@
+@import './styles.scss';
+
+.song-item {
+  display: inline-block;
+  margin: 10px;
+  width: 100%;
+  padding: 20px;
+  background-color: #212121;
+  border-radius: 6px;
+
+  .song-item-header {
+    display: flex;
+    align-items: center;
+
+    .song-item-post-info {
+      display: flex;
+      align-items: center;
+      margin-right: auto;
+
+      .song-item-account-icon {
+        margin-right: 10px;
+        font-size: 40px;
+      }
+    }
+
+    .song-item-edit-icon {
+      border-radius: 50%;
+      padding: 10px;
+      color: #9e9e9e;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: #fafafa;
+      }
+
+      &:active {
+        transition: 0s;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+      }
+    }
+  }
+
+  .song-item-main {
+    .song-item-description {
+      margin: 20px 0;
+    }
+
+    .song-item-player {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border: solid 1px #424242;
+      border-radius: 6px;
+      padding: 20px;
+
+      img {
+        margin-right: 20px;
+        border-radius: 6px;
+        height: 140px;
+        width: 140px;
+        object-fit: cover;
+        box-shadow: 0 4px 10px 2px rgba($color: black, $alpha: 0.4);
+      }
+
+      .song-item-metainfo {
+        display: flex;
+        align-items: center;
+
+        .song-item-info {
+          .song-item-title {
+            font-weight: bold;
+          }
+
+          .song-item-artist {
+            font-size: 14px;
+            color: #9e9e9e;
+          }
+        }
+      }
+
+      .song-item-play-pause-btn {
+        border-radius: 50%;
+        padding: 10px;
+        font-size: 40px;
+        cursor: pointer;
+        background-color: $primary;
+        color: #212121;
+        transition: all 0.1s ease-in-out;
+
+        &:hover {
+          background-color: lighten($color: $primary, $amount: 10);
+        }
+      }
+    }
+  }
+
+  .song-item-actions {
+    display: flex;
+    align-items: center;
+
+    i {
+      border-radius: 50%;
+      padding: 10px;
+      color: #9e9e9e;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: #fafafa;
+      }
+
+      &:active {
+        transition: 0s;
+        background-color: rgba($color: $primary, $alpha: 0.1);
+      }
+    }
+
+    .favorite-btn-liked {
+      color: $primary;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    .song-itme-delete-btn {
+      margin-left: auto;
+      color: #e57373;
+
+      &:hover {
+        color: #ffcdd2;
+      }
+    }
+  }
+}
+
+.active-song-item {
+  color: $primary;
+}

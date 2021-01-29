@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import Home from './components/pages/Home';
 import UploadSong from './components/pages/UploadSong';
+import Favorites from './components/pages/Favorites';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Profile from './components/pages/Profile';
@@ -14,6 +15,7 @@ const router = createRouter({
       path: '/uploadsong',
       component: UploadSong
     },
+    { path: '/Favorites', component: Favorites },
     {
       path: '/signup',
       component: Signup

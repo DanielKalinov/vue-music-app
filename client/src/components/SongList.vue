@@ -1,6 +1,6 @@
 <template>
   <div v-if="user" id="song-list">
-    <ul v-for="(song, index) in songs" :key="song.id">
+    <ul v-for="(song, index) in allSongs" :key="song.id">
       <li>
         <SongItem @play="onPlay" :song="song" :index="index" />
       </li>
@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['songs', 'user'])
+    ...mapGetters(['allSongs', 'user'])
   }
 };
 </script>

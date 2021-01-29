@@ -27,11 +27,13 @@ export default {
   methods: {
     onPlay() {
       const slider = this.$refs.controls.$refs.progressBarSlider;
-
       this.audio.ontimeupdate = () => {
         const sliderValueInPercent =
           100 * (this.audio.currentTime / this.audio.duration);
         slider.value = sliderValueInPercent;
+        if (!sliderValueInPercent) {
+          slider.value = 0;
+        }
         const color =
           'linear-gradient(90deg, rgb(100, 181, 246)' +
           slider.value +
@@ -43,7 +45,7 @@ export default {
         var mins = ~~((this.audio.currentTime % 3600) / 60);
         var secs = ~~this.audio.currentTime % 60;
 
-        var result = '';
+        var result = 0;
 
         result += '' + mins + ':' + (secs < 10 ? '0' : '');
         result += '' + secs;

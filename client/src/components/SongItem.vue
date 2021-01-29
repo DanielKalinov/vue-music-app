@@ -63,7 +63,11 @@ export default {
   methods: {
     ...mapActions(['addToFavorites', 'deleteSong']),
     playPause(song) {
-      this.$store.dispatch('playPause', { song, index: this.index });
+      this.$store.dispatch('playPause', {
+        song,
+        index: this.index,
+        playlist: 'allSongs'
+      });
       this.$emit('play');
     },
     navigateToEditPage() {
@@ -111,5 +115,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './SongItem.scss';
+@import '../assets/css/SongItem.scss';
 </style>
