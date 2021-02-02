@@ -26,6 +26,7 @@ export default {
   components: { Header, Controls },
   methods: {
     onPlay() {
+      console.log('onPlay');
       const slider = this.$refs.controls.$refs.progressBarSlider;
       this.audio.ontimeupdate = () => {
         const sliderValueInPercent =

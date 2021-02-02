@@ -1,8 +1,8 @@
 <template>
-  <div v-if="user" id="song-list">
+  <div v-if="user" id="favorite-song-list">
     <ul>
-      <li v-for="(song, index) in allSongs" :key="song.id">
-        <SongItem @play="onPlay" :song="song" :index="index" />
+      <li v-for="(song, index) in favoriteSongs" :key="song._id">
+        <FavoriteSongItem @play="onPlay" :song="song" :index="index" />
       </li>
     </ul>
   </div>
@@ -10,14 +10,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import SongItem from './SongItem';
+import FavoriteSongItem from './FavoriteSongItem';
 
 export default {
-  created() {
-    this.$store.dispatch('fetchSongs');
-  },
   components: {
-    SongItem
+    FavoriteSongItem
   },
   methods: {
     onPlay() {
@@ -25,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['allSongs', 'user'])
+    ...mapGetters(['user', 'favoriteSongs'])
   }
 };
 </script>

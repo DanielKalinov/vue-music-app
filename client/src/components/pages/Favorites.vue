@@ -1,21 +1,17 @@
 <template>
   <div id="favorites">
-    <ul v-if="user">
-      <li
-        v-for="(song, index) in favoriteSongs"
-        :key="song._id"
-        @click="playPause(song, index)"
-      >
-        <p>{{ song.title }}</p>
-        <p>{{ song.artist }}</p>
-      </li>
-    </ul>
+    <FavoriteSongList @play="onPlay" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import FavoriteSongList from '../FavoriteSongList';
+
 export default {
+  components: {
+    FavoriteSongList
+  },
   methods: {
     playPause(song, index) {
       this.$store.dispatch('playPause', {
@@ -23,6 +19,9 @@ export default {
         index,
         playlist: 'favoriteSongs'
       });
+      this.$emit('play');
+    },
+    onPlay() {
       this.$emit('play');
     }
   },
