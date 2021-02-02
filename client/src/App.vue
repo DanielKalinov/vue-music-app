@@ -17,7 +17,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      currentTime: 0
+      currentTime: '0:00'
     };
   },
   created() {
@@ -26,7 +26,6 @@ export default {
   components: { Header, Controls },
   methods: {
     onPlay() {
-      console.log('onPlay');
       const slider = this.$refs.controls.$refs.progressBarSlider;
       this.audio.ontimeupdate = () => {
         const sliderValueInPercent =
