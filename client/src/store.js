@@ -207,7 +207,6 @@ const store = createStore({
       const song = state[state.playlist][state.currentSongIndex];
       state.audio.src = `${url}/stream/${song.songFilename}`;
 
-      state.audio.src = `${url}/stream/${song.songFilename}`;
       state.audio.play();
       state.currentSong = song;
       state.paused = false;

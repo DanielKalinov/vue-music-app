@@ -66,7 +66,7 @@ export default {
       this.$store.dispatch('playPause', {
         song,
         index: this.index,
-        playlist: 'allSongs'
+        playlist: 'favoriteSongs'
       });
       this.$emit('play');
     },
