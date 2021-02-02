@@ -46,7 +46,7 @@ export default {
         var mins = ~~((this.audio.currentTime % 3600) / 60);
         var secs = ~~this.audio.currentTime % 60;
 
-        var result = 0;
+        var result = '';
 
         result += '' + mins + ':' + (secs < 10 ? '0' : '');
         result += '' + secs;
