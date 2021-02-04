@@ -17,13 +17,9 @@
           <router-link to="/profile">{{ user.username }}</router-link>
         </li>
         <li>
-          <router-link
-            to="#"
-            @click="logOut"
-            id="logoutBtn"
-            class="button secondary-btn"
-            >Log Out</router-link
-          >
+          <button @click="logOut" id="logoutBtn" class="button secondary-btn">
+            Log Out
+          </button>
         </li>
       </ul>
     </template>

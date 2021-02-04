@@ -32,6 +32,8 @@ export default {
 
 <style lang="scss" scoped>
 ul {
+  margin: auto;
+  max-width: 640px;
   list-style: none;
 }
 </style>

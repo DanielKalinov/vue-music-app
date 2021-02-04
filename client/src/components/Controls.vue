@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" id="controls">
+  <div id="controls">
     <div id="controls-song-metainfo">
       <img
         v-if="currentSong"

@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <Header />
-    <div id="header-offset"></div>
+    <template v-if="user">
+      <Header />
+      <div id="header-offset"></div>
+    </template>
     <router-view @play="onPlay"></router-view>
-    <div id="controls-offset"></div>
-    <Controls ref="controls" :currentTime="currentTime" />
+    <template>
+      <div id="controls-offset"></div>
+      <Controls ref="controls" :currentTime="currentTime" />
+    </template>
   </div>
 </template>
 
@@ -62,9 +66,6 @@ export default {
 -
 <style lang="scss">
 #app {
-  margin: auto;
-  max-width: 640px;
-
   #header-offset {
     margin-top: 61px;
   }
