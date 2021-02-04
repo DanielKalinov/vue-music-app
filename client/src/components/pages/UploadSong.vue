@@ -157,25 +157,22 @@ export default {
       formData.append('author', this.user.username);
       formData.append('songFile', this.songFile);
       formData.append('artworkFile', this.artworkFile);
-      this.$store
-        .dispatch('uploadSong', formData)
-        .then((res) => console.log(res))
-        .catch((err) => {
-          this.serverErr = err;
-          this.title = '';
-          this.artist = '';
-          this.description = '';
-          this.songFile = '';
-          this.artworkFile = '';
+      this.$store.dispatch('uploadSong', formData).catch((err) => {
+        this.serverErr = err;
+        this.title = '';
+        this.artist = '';
+        this.description = '';
+        this.songFile = '';
+        this.artworkFile = '';
 
-          this.$refs.songFile.value = '';
-          this.$refs.artworkFile.value = '';
+        this.$refs.songFile.value = '';
+        this.$refs.artworkFile.value = '';
 
-          this.titleIsValid = '';
-          this.artistIsValid = '';
-          this.descriptionIsValid = '';
-          this.songFileIsValid = '';
-        });
+        this.titleIsValid = '';
+        this.artistIsValid = '';
+        this.descriptionIsValid = '';
+        this.songFileIsValid = '';
+      });
     }
   },
   computed: {

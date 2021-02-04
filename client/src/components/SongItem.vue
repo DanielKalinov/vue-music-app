@@ -40,6 +40,7 @@
     </div>
     <div class="song-item-actions">
       <i
+        v-if="song.author !== user.username"
         class="material-icons song-item-favorite-btn"
         :class="{ 'favorite-btn-liked': liked }"
         @click="addToFavorites({ song, userID: user.userID })"

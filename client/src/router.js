@@ -4,7 +4,6 @@ import UploadSong from './components/pages/UploadSong';
 import Favorites from './components/pages/Favorites';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
-import Profile from './components/pages/Profile';
 import EditSong from './components/pages/EditSong';
 
 const router = createRouter({
@@ -24,7 +23,6 @@ const router = createRouter({
       path: '/login',
       component: Login
     },
-    { path: '/profile', component: Profile },
     { path: '/editsong/:id', component: EditSong }
   ]
 });

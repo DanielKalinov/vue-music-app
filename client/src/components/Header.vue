@@ -14,7 +14,7 @@
       </ul>
       <ul id="auth-links">
         <li>
-          <router-link to="/profile">{{ user.username }}</router-link>
+          <p>{{ user.username }}</p>
         </li>
         <li>
           <button @click="logOut" id="logoutBtn" class="button secondary-btn">
@@ -81,6 +81,11 @@ header {
         display: inline-block;
         padding: 10px;
         text-decoration: none;
+      }
+
+      p {
+        padding: 10px;
+        user-select: none;
       }
     }
   }

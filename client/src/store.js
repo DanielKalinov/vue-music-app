@@ -90,6 +90,7 @@ const store = createStore({
           })
           .then((res) => {
             resolve(res.data);
+            router.replace('/');
           })
           .catch((err) => {
             reject(err.response.data);
@@ -127,6 +128,7 @@ const store = createStore({
       const { song } = payload;
       axios.put(`${url}/editsong/${song.songID}`, { song }).then((res) => {
         context.commit('editSong', { allSongs: res.data.songs });
+        router.replace('/');
       });
     }
   },

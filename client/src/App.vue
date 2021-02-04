@@ -5,9 +5,9 @@
         <Header />
         <div id="header-offset"></div>
         <Controls ref="controls" :currentTime="currentTime" />
-        <div id="controls-offset"></div>
       </template>
       <router-view @play="onPlay"></router-view>
+      <div v-if="user" id="controls-offset"></div>
     </template>
     <template v-else>
       <div class="spinner"></div>
