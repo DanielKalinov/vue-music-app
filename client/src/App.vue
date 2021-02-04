@@ -1,13 +1,16 @@
 <template>
   <div id="app">
-    <template v-if="user">
-      <Header />
-      <div id="header-offset"></div>
+    <template v-if="!loading">
+      <template v-if="user">
+        <Header />
+        <div id="header-offset"></div>
+        <Controls ref="controls" :currentTime="currentTime" />
+        <div id="controls-offset"></div>
+      </template>
+      <router-view @play="onPlay"></router-view>
     </template>
-    <router-view @play="onPlay"></router-view>
-    <template>
-      <div id="controls-offset"></div>
-      <Controls ref="controls" :currentTime="currentTime" />
+    <template v-else>
+      <div class="spinner"></div>
     </template>
   </div>
 </template>

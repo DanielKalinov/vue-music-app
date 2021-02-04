@@ -10,7 +10,6 @@ const store = createStore({
     return {
       user: null,
       allSongs: [],
-      favoriteSongs: [],
       audio: new Audio(),
       currentSong: null,
       playlist: '',
@@ -29,6 +28,7 @@ const store = createStore({
             resolve(res.data.user);
           })
           .catch((err) => {
+            context.commit('auth', { user: null });
             reject(err);
           });
       });
@@ -135,11 +135,9 @@ const store = createStore({
     auth(state, payload) {
       if (payload.user) {
         state.user = payload.user;
-        state.favoriteSongs = payload.user.favoriteSongs;
         state.loading = false;
       } else {
         state.user = null;
-        state.favoriteSongs = [];
         state.loading = false;
       }
     },
@@ -242,9 +240,6 @@ const store = createStore({
     },
     allSongs(state) {
       return state.allSongs;
-    },
-    favoriteSongs(state) {
-      return state.favoriteSongs;
     },
     audio(state) {
       return state.audio;

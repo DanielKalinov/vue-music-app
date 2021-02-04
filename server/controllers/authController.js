@@ -22,7 +22,13 @@ module.exports.signUp = async (req, res) => {
   try {
     const user = await User.signUp(email, username, password);
     req.session.userID = user._id;
-    res.json({ user: { email: user.email, username: user.username } });
+    res.json({
+      user: {
+        email: user.email,
+        username: user.username,
+        favoriteSongs: user.favoriteSongs
+      }
+    });
   } catch (err) {
     if (
       err.message === 'Email is already in use' ||
@@ -37,6 +43,7 @@ module.exports.signUp = async (req, res) => {
 
 module.exports.logIn = async (req, res) => {
   const { email, password } = req.body;
+
   try {
     const user = await User.logIn(email, password);
     req.session.userID = user._id;
