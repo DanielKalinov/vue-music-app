@@ -125,7 +125,7 @@ const store = createStore({
     },
     editSong(context, payload) {
       const { song } = payload;
-      axios.put(`${url}/${song.songID}`, { song }).then((res) => {
+      axios.put(`${url}/editsong/${song.songID}`, { song }).then((res) => {
         context.commit('editSong', { allSongs: res.data.songs });
       });
     }
