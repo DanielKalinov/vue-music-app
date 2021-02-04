@@ -227,10 +227,11 @@ const store = createStore({
       state.user = payload.user;
     },
     deleteSong(state, payload) {
-      state.songs = payload.songs;
+      console.log(payload);
+      state.allSongs = payload.allSongs;
     },
     editSong(state, payload) {
-      state.songs = payload.songs;
+      state.allSongs = payload.allSongs;
     }
   },
   getters: {

@@ -107,15 +107,15 @@ app.post('/addfavorite/:id', async (req, res) => {
   });
 });
 
-app.delete('/deletesong/:id', async (req, res) => {
-  const songs = await Song.deleteSong(req.params.id);
-  res.status(200).json({ songs });
-});
-
 app.get('/getsong/:id', async (req, res) => {
   const song = await Song.getSong(req.params.id);
   const { title, artist, description, _id } = song;
   res.status(200).json({ song: { title, artist, description, songID: _id } });
+});
+
+app.delete('/deletesong/:id', async (req, res) => {
+  const songs = await Song.deleteSong(req.params.id);
+  res.status(200).json({ songs });
 });
 
 app.put('/editsong/:id', async (req, res) => {
