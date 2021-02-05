@@ -40,73 +40,12 @@ app.use(
 );
 app.use(authRoutes);
 app.use(songRoutes);
-// app.post('/uploadsong', upload, async (req, res) => {
-//   try {
-//     const { title, artist, description, duration, author } = req.body;
-//     await Song.create({
-//       title,
-//       artist,
-//       description,
-//       duration,
-//       date: new Date(),
-//       author,
-//       songFilename: req.files.songFile[0].filename.replace(/ /g, ''),
-//       artworkFilename: req.files.artworkFile[0].filename.replace(/ /g, '')
-//     });
 
-//     res.sendStatus(201);
-//   } catch (err) {
-//     res.status(500).json('Something went wrong');
-//   }
-// });
-// app.get('/songs', async (req, res) => {
-//   const songs = await Song.find();
-//   res.json(songs);
-// });
-
-// app.get('/stream/:songfilename', (req, res) => {
-//   res.sendFile(
-//     path.join(__dirname, './public/song_files/' + req.params.songfilename)
-//   );
-// });
-
-// app.get('/songimage/:artworkfilename', (req, res) => {
-//   res.sendFile(
-//     path.join(__dirname, './public/artwork_files/' + req.params.artworkfilename)
-//   );
-// });
-
-// app.post('/addfavorite/:id', async (req, res) => {
-//   const { song, userID } = req.body;
-//   const user = await User.addToFavorites(song, userID);
-//   res.status(200).json({
-//     user: {
-//       userID: user._id,
-//       email: user.email,
-//       username: user.username,
-//       favoriteSongs: user.favoriteSongs
-//     }
-//   });
-// });
-
-// app.get('/getsong/:id', async (req, res) => {
-//   const song = await Song.getSong(req.params.id);
-//   const { title, artist, description, _id } = song;
-//   res.status(200).json({ song: { title, artist, description, songID: _id } });
-// });
-
-// app.delete('/deletesong/:id', async (req, res) => {
-//   const songs = await Song.deleteSong(req.params.id);
-//   res.status(200).json({ songs });
-// });
-
-// app.put('/editsong/:id', async (req, res) => {
-//   const songs = await Song.editSong(req.body.song);
-//   res.status(200).json({ songs });
-// });
+const MONGODB_CONNECTION =
+  'mongodb+srv://daniel:Xov9gsC7bIRERymc@cluster0.8uos6.mongodb.net/VueMusicApp?retryWrites=true&w=majority';
 
 mongoose.connect(
-  process.env.MONGODB_CONNECTION,
+  MONGODB_CONNECTION,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

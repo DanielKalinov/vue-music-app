@@ -19,7 +19,7 @@ export default {
   },
   logOut(state) {
     state.user = null;
-    router.replace('/login');
+    router.replace('/');
   },
   fetchSongs(state, payload) {
     state.allSongs = payload.allSongs;

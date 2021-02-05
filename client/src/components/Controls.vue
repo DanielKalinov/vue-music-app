@@ -1,16 +1,22 @@
 <template>
-  <div id="controls">
+  <div
+    class="controls"
+    :class="{
+      'controls-visible': currentSong
+    }"
+  >
     <div id="controls-song-metainfo">
       <img
         v-if="currentSong"
         :src="`http://localhost:3000/songimage/${currentSong.artworkFilename}`"
       />
+      <div v-else id="img-placeholder"></div>
       <div id="controls-song-info">
         <p id="controls-song-title">
-          {{ currentSong ? currentSong.title : ' ' }}
+          {{ currentSong ? currentSong.title : '' }}
         </p>
         <p id="controls-song-artist">
-          {{ currentSong ? currentSong.artist : ' ' }}
+          {{ currentSong ? currentSong.artist : '' }}
         </p>
       </div>
     </div>
@@ -81,7 +87,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/styles.scss';
 
-#controls {
+.controls {
   border-top: solid 1px #424242;
   position: fixed;
   bottom: 0;
@@ -92,9 +98,11 @@ export default {
   margin: auto;
   padding: 10px;
   width: 100%;
+  transform: translateY(150px);
   background-color: rgba($color: #212121, $alpha: 0.8);
   backdrop-filter: blur(20px);
   box-shadow: 0 0 10px 2px rgba($color: #000, $alpha: 0.4);
+  transition: all 0.2s ease-in-out;
 
   #controls-song-metainfo {
     display: flex;
@@ -106,6 +114,11 @@ export default {
       width: 60px;
       object-fit: cover;
       margin-right: 10px;
+    }
+
+    #img-placeholder {
+      height: 60px;
+      width: 60px;
     }
 
     #controls-song-info {
@@ -226,5 +239,9 @@ export default {
       }
     }
   }
+}
+
+.controls-visible {
+  transform: translateY(0);
 }
 </style>
