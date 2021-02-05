@@ -59,39 +59,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  width: 100%;
-  background-color: rgba($color: #212121, $alpha: 0.8);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 0 10px 2px rgba($color: #000, $alpha: 0.4);
-
-  ul {
-    display: flex;
-    align-items: center;
-    list-style: none;
-
-    li {
-      a {
-        display: inline-block;
-        padding: 10px;
-        text-decoration: none;
-      }
-
-      p {
-        padding: 10px;
-        user-select: none;
-      }
-    }
-  }
-
-  #signupBtn {
-    margin-right: 10px;
-  }
-}
+@import '../assets/css/Header.scss';
 </style>
