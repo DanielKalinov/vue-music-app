@@ -19,6 +19,7 @@ export default {
   },
   logOut(state) {
     state.user = null;
+    state.audio.src = '';
     router.replace('/');
   },
   fetchSongs(state, payload) {
