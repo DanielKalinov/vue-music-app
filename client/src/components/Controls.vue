@@ -15,7 +15,7 @@
       </div>
     </div>
     <div id="progress-bar-container">
-      <p style="width: 80px;">
+      <p id="progress-bar-current-time">
         {{ currentSong ? currentTime : '0:00' }}
       </p>
       <input
@@ -28,7 +28,7 @@
         ref="progressBarSlider"
         :disabled="!currentSong"
       />
-      <p style="width: 80px; text-align: right;">
+      <p id="progress-bar-duration">
         {{ currentSong ? currentSong.duration : '0:00' }}
       </p>
     </div>
@@ -126,6 +126,15 @@ export default {
     align-items: center;
     width: 600px;
     height: 10px;
+
+    #progress-bar-current-time {
+      width: 80px;
+    }
+
+    #progress-bar-duration {
+      width: 80px;
+      text-align: right;
+    }
 
     #progress-bar-slider {
       -webkit-appearance: none;

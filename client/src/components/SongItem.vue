@@ -8,7 +8,10 @@
           <p>{{ date }}</p>
         </div>
       </div>
-      <i class="material-icons song-item-edit-icon" @click="navigateToEditPage"
+      <i
+        v-if="song.author === user.username"
+        class="material-icons song-item-edit-icon"
+        @click="navigateToEditPage"
         >create</i
       >
     </div>

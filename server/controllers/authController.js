@@ -24,6 +24,7 @@ module.exports.signUp = async (req, res) => {
     req.session.userID = user._id;
     res.json({
       user: {
+        userID: user._id,
         email: user.email,
         username: user.username,
         favoriteSongs: user.favoriteSongs

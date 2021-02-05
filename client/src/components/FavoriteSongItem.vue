@@ -8,9 +8,6 @@
           <p>{{ date }}</p>
         </div>
       </div>
-      <i class="material-icons song-item-edit-icon" @click="navigateToEditPage"
-        >create</i
-      >
     </div>
     <div class="song-item-main">
       <p class="song-item-description">{{ song.description }}</p>
@@ -44,12 +41,6 @@
         :class="{ 'favorite-btn-liked': liked }"
         @click="addToFavorites({ song, userID: user.userID })"
         >favorite</i
-      >
-      <i
-        v-if="song.author === user.username"
-        class="material-icons song-itme-delete-btn"
-        @click="deleteSong({ id: song._id })"
-        >delete</i
       >
     </div>
   </div>

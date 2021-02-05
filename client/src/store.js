@@ -227,7 +227,6 @@ const store = createStore({
       state.user = payload.user;
     },
     deleteSong(state, payload) {
-      console.log(payload);
       state.allSongs = payload.allSongs;
     },
     editSong(state, payload) {
