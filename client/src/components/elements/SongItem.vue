@@ -119,5 +119,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/SongItem.scss';
+@import '../../assets/css/SongItem.scss';
 </style>

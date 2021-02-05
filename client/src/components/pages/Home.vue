@@ -21,7 +21,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import SongList from '../SongList';
+import SongList from '../elements/SongList';
 
 export default {
   components: {

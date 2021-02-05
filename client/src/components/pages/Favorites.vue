@@ -6,7 +6,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import FavoriteSongList from '../FavoriteSongList';
+import FavoriteSongList from '../elements/FavoriteSongList';
 
 export default {
   components: {

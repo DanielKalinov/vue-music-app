@@ -85,5 +85,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/Controls.scss';
+@import '../../assets/css/Controls.scss';
 </style>

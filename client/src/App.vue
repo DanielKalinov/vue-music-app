@@ -17,8 +17,8 @@
 
 <script>
 import './assets/css/styles.scss';
-import Header from './components/Header.vue';
-import Controls from './components/Controls.vue';
+import Header from './components/elements/Header.vue';
+import Controls from './components/elements/Controls.vue';
 import { mapGetters } from 'vuex';
 
 export default {
