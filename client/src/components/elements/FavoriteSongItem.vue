@@ -11,7 +11,12 @@
     </div>
     <div class="song-item-main">
       <p class="song-item-description">{{ song.description }}</p>
-      <div class="song-item-player">
+      <div
+        class="song-item-player"
+        :class="{
+          'song-item-player-active': currentSong && currentSong._id === song._id
+        }"
+      >
         <div class="song-item-metainfo">
           <img
             :src="`http://localhost:3000/songimage/${song.artworkFilename}`"

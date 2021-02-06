@@ -4,6 +4,7 @@ header {
   left: 0;
   display: flex;
   justify-content: space-between;
+  border-bottom: solid 1px #424242;
   padding: 10px;
   width: 100%;
   background-color: rgba($color: #212121, $alpha: 0.8);
@@ -26,6 +27,11 @@ header {
         padding: 10px;
         user-select: none;
       }
+    }
+
+    .router-link-active {
+      border-radius: 6px;
+      background-color: #424242;
     }
   }
 

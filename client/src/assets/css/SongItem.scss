@@ -94,6 +94,14 @@
         }
       }
     }
+
+    .song-item-player-active {
+      border: solid 1px $primary;
+
+      .song-item-title {
+        color: $primary;
+      }
+    }
   }
 
   .song-item-actions {
@@ -134,8 +142,4 @@
       }
     }
   }
-}
-
-.active-song-item {
-  color: $primary;
 }

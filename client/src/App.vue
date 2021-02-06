@@ -6,7 +6,11 @@
         <div id="header-offset"></div>
         <Controls ref="controls" :currentTime="currentTime" />
       </template>
-      <router-view @play="onPlay"></router-view>
+      <router-view @play="onPlay" v-slot="slotProps">
+        <transition name="route" mode="out-in">
+          <component :is="slotProps.Component"></component>
+        </transition>
+      </router-view>
       <div v-if="user" id="controls-offset"></div>
     </template>
     <template v-else>
@@ -76,5 +80,18 @@ export default {
   #controls-offset {
     margin-bottom: 84px;
   }
+}
+
+.route-enter-from,
+.route-leave-to {
+  opacity: 0;
+}
+
+.route-enter-active {
+  transition: opacity 0.1s ease-out;
+}
+
+.route-leave-active {
+  transition: opacity 0.1s ease-in;
 }
 </style>
