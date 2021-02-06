@@ -84,7 +84,6 @@ export default {
   },
   skipNextControls(state) {
     state.currentSongIndex++;
-    console.log(state[state.playlist]);
     if (state.currentSongIndex >= state[state.playlist].length) {
       state.currentSongIndex = 0;
     }
@@ -97,6 +96,7 @@ export default {
   },
   addToFavorites(state, payload) {
     state.user = payload.user;
+    state.favoriteSongs = payload.user.favoriteSongs;
   },
   deleteSong(state, payload) {
     state.allSongs = payload.allSongs;
