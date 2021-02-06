@@ -6,9 +6,11 @@ export default {
     if (payload.user) {
       state.user = payload.user;
       state.loading = false;
+      state.favoriteSongs = payload.user.favoriteSongs;
     } else {
       state.user = null;
       state.loading = false;
+      state.favoriteSongs = [];
     }
   },
   signUp(state, payload) {
@@ -82,6 +84,7 @@ export default {
   },
   skipNextControls(state) {
     state.currentSongIndex++;
+    console.log(state[state.playlist]);
     if (state.currentSongIndex >= state[state.playlist].length) {
       state.currentSongIndex = 0;
     }
