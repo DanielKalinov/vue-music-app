@@ -91,7 +91,7 @@ export default {
       }
     },
     playPauseButton() {
-      if (this.currentSong === this.song) {
+      if (this.currentSong && this.currentSong._id === this.song._id) {
         if (this.paused) {
           return 'play_arrow';
         } else {
