@@ -118,6 +118,12 @@ body {
     }
   }
 
+  a {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: $primary;
+  }
+
   .submit-btn {
     width: 100% !important;
 

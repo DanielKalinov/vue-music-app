@@ -29,6 +29,7 @@
           Please enter a valid password
         </p>
       </div>
+      <router-link to="/signup">Don't have an account?</router-link>
       <button
         type="submit"
         :disabled="!formIsValid"

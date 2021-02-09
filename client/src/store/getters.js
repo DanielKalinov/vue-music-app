@@ -8,6 +8,9 @@ export default {
   allSongs(state) {
     return state.allSongs;
   },
+  favoriteSongs(state) {
+    return state.favoriteSongs;
+  },
   audio(state) {
     return state.audio;
   },

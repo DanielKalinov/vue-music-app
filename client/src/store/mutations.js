@@ -18,10 +18,12 @@ export default {
   },
   login(state, payload) {
     state.user = payload.user;
+    state.favoriteSongs = payload.user.favoriteSongs;
   },
   logOut(state) {
     state.user = null;
     state.audio.src = '';
+    state.favoriteSongs = [];
     router.replace('/');
   },
   fetchSongs(state, payload) {

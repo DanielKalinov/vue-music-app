@@ -42,6 +42,7 @@
           Password must be at least 10 characters long
         </p>
       </div>
+      <router-link to="/login">Already have an account?</router-link>
       <button
         type="submit"
         :disabled="!formIsValid"

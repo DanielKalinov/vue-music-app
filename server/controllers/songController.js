@@ -8,7 +8,7 @@ module.exports.getSong = async (req, res) => {
   res.status(200).json({ song: { title, artist, description, songID: _id } });
 };
 module.exports.fetchSongs = async (req, res) => {
-  const songs = await Song.find();
+  const songs = await Song.find().sort('-date');
   res.json(songs);
 };
 module.exports.sendSong = (req, res) => {

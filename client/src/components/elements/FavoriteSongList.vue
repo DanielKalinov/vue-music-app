@@ -1,7 +1,7 @@
 <template>
   <div v-if="user" id="favorite-song-list">
     <ul>
-      <li v-for="(song, index) in user.favoriteSongs" :key="song._id">
+      <li v-for="(song, index) in favoriteSongs" :key="song._id">
         <FavoriteSongItem @play="onPlay" :song="song" :index="index" />
       </li>
     </ul>
@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user'])
+    ...mapGetters(['user', 'favoriteSongs'])
   }
 };
 </script>

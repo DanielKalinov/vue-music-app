@@ -40,8 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 #home {
-  flex-grow: 1;
-
   #banner-container {
     display: flex;
     align-items: center;
@@ -51,10 +49,10 @@ export default {
     background-color: #3949ab;
 
     #banner {
-      max-width: 960px;
+      max-width: 640px;
 
       p {
-        margin-bottom: 20px;
+        margin-bottom: 40px;
       }
 
       .primary-btn {
