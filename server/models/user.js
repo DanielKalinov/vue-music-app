@@ -57,15 +57,15 @@ userSchema.statics.addToFavorites = async function (song, userID) {
   );
   if (songIsFavorite) {
     await this.updateOne({ _id: userID }, { $pull: { favoriteSongs: song } });
-    user = await this.findOne({ _id: userID }).sort({
-      'favoriteSongs.date': -1
-    });
+    user = await this.findOne({ _id: userID });
     return user;
   } else {
-    await this.updateOne({ _id: userID }, { $push: { favoriteSongs: song } });
-    user = await this.findOne({ _id: userID }).sort({
-      'favoriteSongs.date': -1
-    });
+    await this.updateOne(
+      { _id: userID },
+      { $push: { favoriteSongs: { $each: [song], $position: 0 } } }
+    );
+
+    user = await this.findOne({ _id: userID });
     return user;
   }
 };

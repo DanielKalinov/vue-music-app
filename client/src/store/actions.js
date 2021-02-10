@@ -44,7 +44,6 @@ export default {
         })
         .then((res) => {
           resolve(res);
-          console.log(res.data.user);
           context.commit('login', { user: res.data.user });
 
           router.replace('/');
