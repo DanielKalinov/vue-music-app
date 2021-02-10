@@ -1,6 +1,9 @@
 <template>
   <div id="favorites">
-    <FavoriteSongList @play="onPlay" />
+    <FavoriteSongList v-if="favoriteSongs.length > 0" @play="onPlay" />
+    <div v-else id="msg-container">
+      <h2>No songs added to Favorites yet.</h2>
+    </div>
   </div>
 </template>
 
@@ -42,5 +45,11 @@ ul {
       background-color: #424242;
     }
   }
+}
+#msg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
 }
 </style>
