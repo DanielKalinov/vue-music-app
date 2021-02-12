@@ -10,6 +10,6 @@ router.get('/songimage/:artworkfilename', songController.sendArtwork);
 router.post('/uploadsong', multerUpload, songController.uploadSong);
 router.put('/editsong/:id', songController.editSong);
 router.post('/addfavorite/:id', songController.addToFavorites);
-router.delete('/deletesong/:id', songController.deleteSong);
+router.post('/deletesong/:id', songController.deleteSong);
 
 module.exports = router;
