@@ -2,108 +2,108 @@ import router from '../router';
 const url = 'http://localhost:3000';
 
 export default {
-  auth(state, payload) {
-    if (payload.user) {
-      state.user = payload.user;
-      state.loading = false;
-      state.favoriteSongs = payload.user.favoriteSongs;
-    } else {
-      state.user = null;
-      state.loading = false;
-      state.favoriteSongs = [];
-    }
-  },
-  signUp(state, payload) {
-    state.user = payload.user;
-  },
-  login(state, payload) {
-    state.user = payload.user;
-    state.favoriteSongs = payload.user.favoriteSongs;
-  },
-  logOut(state) {
-    state.user = null;
-    state.audio.src = '';
-    state.favoriteSongs = [];
-    router.replace('/');
-  },
-  fetchSongs(state, payload) {
-    state.allSongs = payload.allSongs;
-  },
-  playPause(state, payload) {
-    const { song, index, playlist } = payload;
-    if (state.audio.src === `${url}/stream/${song.songFilename}`) {
-      if (state.audio.paused) {
-        state.audio.play();
-        state.paused = false;
-      } else {
-        state.audio.pause();
-        state.paused = true;
-      }
-    } else {
-      state.audio.src = `${url}/stream/${song.songFilename}`;
-      state.audio.play();
-      state.currentSong = song;
-      state.playlist = playlist;
-      state.currentSongIndex = index;
-      state.paused = false;
-    }
+	auth(state, payload) {
+		if (payload.user) {
+			state.user = payload.user;
+			state.loading = false;
+			state.favoriteSongs = payload.user.favoriteSongs;
+		} else {
+			state.user = null;
+			state.loading = false;
+			state.favoriteSongs = [];
+		}
+	},
+	signUp(state, payload) {
+		state.user = payload.user;
+	},
+	login(state, payload) {
+		state.user = payload.user;
+		state.favoriteSongs = payload.user.favoriteSongs;
+	},
+	logOut(state) {
+		state.user = null;
+		state.audio.src = '';
+		state.favoriteSongs = [];
+		router.replace('/');
+	},
+	fetchSongs(state, payload) {
+		state.allSongs = payload.allSongs;
+	},
+	playPause(state, payload) {
+		const { song, index, playlist } = payload;
+		if (state.audio.src === `${url}/stream/${song.songFilename}`) {
+			if (state.audio.paused) {
+				state.audio.play();
+				state.paused = false;
+			} else {
+				state.audio.pause();
+				state.paused = true;
+			}
+		} else {
+			state.audio.src = `${url}/stream/${song.songFilename}`;
+			state.audio.play();
+			state.currentSong = song;
+			state.playlist = playlist;
+			state.currentSongIndex = index;
+			state.paused = false;
+		}
 
-    state.audio.onended = () => {
-      state.currentSongIndex++;
-      if (state.currentSongIndex >= state[state.playlist].length) {
-        state.currentSongIndex = 0;
-      }
+		state.audio.onended = () => {
+			state.currentSongIndex++;
+			if (state.currentSongIndex >= state.playlist.length) {
+				state.currentSongIndex = 0;
+			}
 
-      const song = state[state.playlist][state.currentSongIndex];
-      state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
-      state.audio.play();
-      state.currentSong = song;
-      state.paused = false;
-    };
-  },
-  playPauseControls(state) {
-    if (state.audio.paused) {
-      state.audio.play();
-      state.paused = false;
-    } else {
-      state.audio.pause();
-      state.paused = true;
-    }
-  },
-  skipPreviousControls(state) {
-    state.currentSongIndex--;
+			const song = state.playlist[state.currentSongIndex];
+			state.audio.src = `http://localhost:3000/stream/${song.songFilename}`;
+			state.audio.play();
+			state.currentSong = song;
+			state.paused = false;
+		};
+	},
+	playPauseControls(state) {
+		if (state.audio.paused) {
+			state.audio.play();
+			state.paused = false;
+		} else {
+			state.audio.pause();
+			state.paused = true;
+		}
+	},
+	skipPreviousControls(state) {
+		state.currentSongIndex--;
 
-    if (state.currentSongIndex < 0) {
-      state.currentSongIndex = state[state.playlist].length - 1;
-    }
+		if (state.currentSongIndex < 0) {
+			state.currentSongIndex = state.playlist.length - 1;
+		}
 
-    const song = state[state.playlist][state.currentSongIndex];
-    state.audio.src = `${url}/stream/${song.songFilename}`;
+		const song = state.playlist[state.currentSongIndex];
+		state.audio.src = `${url}/stream/${song.songFilename}`;
 
-    state.audio.play();
-    state.currentSong = song;
-    state.paused = false;
-  },
-  skipNextControls(state) {
-    state.currentSongIndex++;
-    if (state.currentSongIndex >= state[state.playlist].length) {
-      state.currentSongIndex = 0;
-    }
+		state.audio.play();
+		state.currentSong = song;
+		state.paused = false;
+	},
+	skipNextControls(state) {
+		state.currentSongIndex++;
+		if (state.currentSongIndex >= state.playlist.length) {
+			state.currentSongIndex = 0;
+		}
 
-    const song = state[state.playlist][state.currentSongIndex];
-    state.audio.src = `${url}/stream/${song.songFilename}`;
-    state.audio.play();
-    state.currentSong = song;
-    state.paused = false;
-  },
-  addToFavorites(state, payload) {
-    state.user = payload.user;
-    state.favoriteSongs = payload.user.favoriteSongs;
-  },
-  deleteSong(state, payload) {
-    state.allSongs = payload.allSongs;
-  },
-  editSong(state, payload) {
-    state.allSongs = payload.allSongs;
-  }
+		const song = state.playlist[state.currentSongIndex];
+		state.audio.src = `${url}/stream/${song.songFilename}`;
+		state.audio.play();
+		state.currentSong = song;
+		state.paused = false;
+	},
+	addToFavorites(state, payload) {
+		state.user = payload.user;
+		state.favoriteSongs = payload.user.favoriteSongs;
+	},
+	deleteSong(state, payload) {
+		state.allSongs = payload.allSongs;
+	},
+	editSong(state, payload) {
+		state.allSongs = payload.allSongs;
+	}
 };

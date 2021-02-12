@@ -50,7 +50,7 @@
 				>favorite</i
 			>
 			<i
-				v-if="song.author === user.username"
+				v-else
 				class="material-icons song-itme-delete-btn"
 				@click="
 					deleteSong({
@@ -69,14 +69,14 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-	props: ['song', 'index'],
+	props: ['song', 'index', 'playlist'],
 	methods: {
 		...mapActions(['addToFavorites', 'deleteSong']),
 		playPause(song) {
 			this.$store.dispatch('playPause', {
 				song,
 				index: this.index,
-				playlist: 'allSongs'
+				playlist: this.playlist
 			});
 			this.$emit('play');
 		},
