@@ -52,7 +52,13 @@
 			<i
 				v-if="song.author === user.username"
 				class="material-icons song-itme-delete-btn"
-				@click="deleteSong({ id: song._id, songFilename: song.songFilename })"
+				@click="
+					deleteSong({
+						id: song._id,
+						songFilename: song.songFilename,
+						artworkFilename: song.artworkFilename
+					})
+				"
 				>delete</i
 			>
 		</div>

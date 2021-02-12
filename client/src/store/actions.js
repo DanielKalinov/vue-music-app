@@ -105,7 +105,8 @@ export default {
 	deleteSong(context, payload) {
 		axios
 			.post(`${url}/deletesong/${payload.id}`, {
-				songFilename: payload.songFilename
+				songFilename: payload.songFilename,
+				artworkFilename: payload.artworkFilename
 			})
 			.then((res) => {
 				context.commit('deleteSong', { allSongs: res.data.songs });

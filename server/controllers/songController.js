@@ -63,6 +63,8 @@ module.exports.addToFavorites = async (req, res) => {
 module.exports.deleteSong = async (req, res) => {
 	const songs = await Song.deleteSong(req.params.id);
 	fs.unlink(`public/song_files/${req.body.songFilename}`, () => {
-		res.status(200).json({ songs });
+		fs.unlink(`public/artwork_files/${req.body.artworkFilename}`, () => {
+			res.status(200).json({ songs });
+		});
 	});
 };
