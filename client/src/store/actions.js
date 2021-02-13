@@ -9,7 +9,7 @@ export default {
 				.get(`${url}/auth`)
 				.then((res) => {
 					context.commit('auth', { user: res.data.user });
-					resolve(res.data.user);
+					resolve({ user: res.data.user });
 				})
 				.catch((err) => {
 					context.commit('auth', { user: null });
@@ -60,7 +60,7 @@ export default {
 	},
 	fetchSongs(context) {
 		axios.get(`${url}/songs`).then((res) => {
-			context.commit('fetchSongs', { allSongs: res.data });
+			context.commit('fetchSongs', { allSongs: res.data.songs });
 		});
 	},
 	uploadSong(context, payload) {
@@ -73,6 +73,9 @@ export default {
 				})
 				.then((res) => {
 					resolve(res.data);
+
+					context.commit('uploadSong', { user: res.data.user });
+
 					router.replace('/');
 				})
 				.catch((err) => {
@@ -95,8 +98,8 @@ export default {
 	addToFavorites(context, payload) {
 		axios
 			.post(`${url}/addfavorite/${payload.song._id}`, {
-				song: payload.song,
-				userID: payload.userID
+				userID: payload.userID,
+				song: payload.song
 			})
 			.then((res) => {
 				context.commit('addToFavorites', { user: res.data.user });
@@ -104,12 +107,15 @@ export default {
 	},
 	deleteSong(context, payload) {
 		axios
-			.post(`${url}/deletesong/${payload.id}`, {
-				songFilename: payload.songFilename,
-				artworkFilename: payload.artworkFilename
+			.post(`${url}/deletesong/${payload.song._id}`, {
+				userID: payload.userID,
+				song: payload.song
 			})
 			.then((res) => {
-				context.commit('deleteSong', { allSongs: res.data.songs });
+				context.commit('deleteSong', {
+					user: res.data.user,
+					allSongs: res.data.songs
+				});
 			});
 	},
 	editSong(context, payload) {

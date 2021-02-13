@@ -46,7 +46,7 @@
 				v-if="song.author !== user.username"
 				class="material-icons song-item-favorite-btn"
 				:class="{ 'favorite-btn-liked': liked }"
-				@click="addToFavorites({ song, userID: user.userID })"
+				@click="addToFavorites({ userID: user.userID, song })"
 				>favorite</i
 			>
 			<i
@@ -54,9 +54,8 @@
 				class="material-icons song-itme-delete-btn"
 				@click="
 					deleteSong({
-						id: song._id,
-						songFilename: song.songFilename,
-						artworkFilename: song.artworkFilename
+						userID: user.userID,
+						song
 					})
 				"
 				>delete</i

@@ -11,7 +11,6 @@ const store = createStore({
 		return {
 			user: null,
 			allSongs: [],
-			favoriteSongs: [],
 			audio: new Audio(),
 			currentSong: null,
 			playlist: [],

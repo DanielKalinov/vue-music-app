@@ -1,8 +1,8 @@
 <template>
 	<div id="favorites">
 		<SongList
-			v-if="favoriteSongs.length > 0"
-			:playlist="favoriteSongs"
+			v-if="user.favoriteSongs.length > 0"
+			:playlist="user.favoriteSongs"
 			@play="onPlay"
 		/>
 		<div v-else id="msg-container">
@@ -23,8 +23,7 @@ export default {
 		playPause(song, index) {
 			this.$store.dispatch('playPause', {
 				song,
-				index,
-				playlist: 'favoriteSongs'
+				index
 			});
 			this.$emit('play');
 		},

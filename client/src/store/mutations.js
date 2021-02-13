@@ -6,11 +6,9 @@ export default {
 		if (payload.user) {
 			state.user = payload.user;
 			state.loading = false;
-			state.favoriteSongs = payload.user.favoriteSongs;
 		} else {
 			state.user = null;
 			state.loading = false;
-			state.favoriteSongs = [];
 		}
 	},
 	signUp(state, payload) {
@@ -18,12 +16,10 @@ export default {
 	},
 	login(state, payload) {
 		state.user = payload.user;
-		state.favoriteSongs = payload.user.favoriteSongs;
 	},
 	logOut(state) {
 		state.user = null;
 		state.audio.src = '';
-		state.favoriteSongs = [];
 		router.replace('/');
 	},
 	fetchSongs(state, payload) {
@@ -98,9 +94,12 @@ export default {
 	},
 	addToFavorites(state, payload) {
 		state.user = payload.user;
-		state.favoriteSongs = payload.user.favoriteSongs;
+	},
+	uploadSong(state, payload) {
+		state.user = payload.user;
 	},
 	deleteSong(state, payload) {
+		state.user = payload.user;
 		state.allSongs = payload.allSongs;
 	},
 	editSong(state, payload) {

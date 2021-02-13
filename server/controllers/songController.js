@@ -10,7 +10,7 @@ module.exports.getSong = async (req, res) => {
 };
 module.exports.fetchSongs = async (req, res) => {
 	const songs = await Song.find().sort('-date');
-	res.json(songs);
+	res.json({ songs });
 };
 module.exports.sendSong = (req, res) => {
 	res.sendFile(
@@ -27,8 +27,8 @@ module.exports.sendArtwork = (req, res) => {
 };
 module.exports.uploadSong = async (req, res) => {
 	try {
-		const { title, artist, description, duration, author } = req.body;
-		await Song.create({
+		const { userID, title, artist, description, duration, author } = req.body;
+		const song = await Song.create({
 			title,
 			artist,
 			description,
@@ -38,9 +38,11 @@ module.exports.uploadSong = async (req, res) => {
 			songFilename: req.files.songFile[0].filename.replace(/ /g, ''),
 			artworkFilename: req.files.artworkFile[0].filename.replace(/ /g, '')
 		});
+		const user = await User.uploadSong(userID, song);
 
-		res.sendStatus(201);
+		res.status(201).json({ user });
 	} catch (err) {
+		console.log(err.message);
 		res.status(500).json('Something went wrong');
 	}
 };
@@ -50,7 +52,7 @@ module.exports.editSong = async (req, res) => {
 };
 module.exports.addToFavorites = async (req, res) => {
 	const { song, userID } = req.body;
-	const user = await User.addToFavorites(song, userID);
+	const user = await User.addToFavorites(userID, song);
 	res.status(200).json({
 		user: {
 			userID: user._id,
@@ -61,10 +63,12 @@ module.exports.addToFavorites = async (req, res) => {
 	});
 };
 module.exports.deleteSong = async (req, res) => {
+	const { userID, song } = req.body;
 	const songs = await Song.deleteSong(req.params.id);
-	fs.unlink(`public/song_files/${req.body.songFilename}`, () => {
-		fs.unlink(`public/artwork_files/${req.body.artworkFilename}`, () => {
-			res.status(200).json({ songs });
+	const user = await User.deleteUploadedSong(userID, song);
+	fs.unlink(`public/song_files/${req.body.song.songFilename}`, () => {
+		fs.unlink(`public/artwork_files/${req.body.song.artworkFilename}`, () => {
+			res.status(200).json({ user, songs });
 		});
 	});
 };
