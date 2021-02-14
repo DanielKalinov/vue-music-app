@@ -45,7 +45,8 @@ module.exports.uploadSong = async (req, res) => {
 				userID: user._id,
 				email: user.email,
 				username: user.username,
-				favoriteSongs: user.favoriteSongs
+				favoriteSongs: user.favoriteSongs,
+				uploadedSongs: user.uploadedSongs
 			}
 		});
 	} catch (err) {
@@ -65,7 +66,8 @@ module.exports.addToFavorites = async (req, res) => {
 			userID: user._id,
 			email: user.email,
 			username: user.username,
-			favoriteSongs: user.favoriteSongs
+			favoriteSongs: user.favoriteSongs,
+			uploadedSongs: user.uploadedSongs
 		}
 	});
 };
@@ -80,7 +82,8 @@ module.exports.deleteSong = async (req, res) => {
 					userID: user._id,
 					email: user.email,
 					username: user.username,
-					favoriteSongs: user.favoriteSongs
+					favoriteSongs: user.favoriteSongs,
+					uploadedSongs: user.uploadedSongs
 				},
 				songs
 			});
