@@ -93,13 +93,13 @@ export default {
 		state.paused = false;
 	},
 	addToFavorites(state, payload) {
-		state.user = payload.user;
+		state.user.favoriteSongs = payload.favoriteSongs;
 	},
 	uploadSong(state, payload) {
-		state.user = payload.user;
+		state.user.uploadedSongs = payload.uploadedSongs;
 	},
 	deleteSong(state, payload) {
-		state.user = payload.user;
+		state.user.uploadedSongs = payload.uploadedSongs;
 		state.allSongs = payload.allSongs;
 	},
 	editSong(state, payload) {

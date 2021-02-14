@@ -27,10 +27,10 @@ songSchema.statics.editSong = async function (song) {
 	return songs;
 };
 
-songSchema.statics.deleteSong = async function (songID) {
+songSchema.statics.deleteSongFile = async function (songID) {
 	await this.findByIdAndDelete({ _id: mongoose.Types.ObjectId(songID) });
-	const songs = await this.find();
-	return songs;
+	const allSongs = await this.find();
+	return allSongs;
 };
 
 const Song = mongoose.model('song', songSchema);

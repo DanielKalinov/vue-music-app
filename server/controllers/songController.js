@@ -38,16 +38,10 @@ module.exports.uploadSong = async (req, res) => {
 			songFilename: req.files.songFile[0].filename.replace(/ /g, ''),
 			artworkFilename: req.files.artworkFile[0].filename.replace(/ /g, '')
 		});
-		const user = await User.uploadSong(userID, song);
+		const uploadedSongs = await User.uploadSong(userID, song);
 
 		res.status(201).json({
-			user: {
-				userID: user._id,
-				email: user.email,
-				username: user.username,
-				favoriteSongs: user.favoriteSongs,
-				uploadedSongs: user.uploadedSongs
-			}
+			uploadedSongs
 		});
 	} catch (err) {
 		console.log(err.message);
@@ -60,32 +54,20 @@ module.exports.editSong = async (req, res) => {
 };
 module.exports.addToFavorites = async (req, res) => {
 	const { song, userID } = req.body;
-	const user = await User.addToFavorites(userID, song);
+	const favoriteSongs = await User.addToFavorites(userID, song);
 	res.status(200).json({
-		user: {
-			userID: user._id,
-			email: user.email,
-			username: user.username,
-			favoriteSongs: user.favoriteSongs,
-			uploadedSongs: user.uploadedSongs
-		}
+		favoriteSongs
 	});
 };
 module.exports.deleteSong = async (req, res) => {
 	const { userID, song } = req.body;
-	const songs = await Song.deleteSong(req.params.id);
-	const user = await User.deleteUploadedSong(userID, song);
+	const allSongs = await Song.deleteSongFile(req.params.id);
+	const uploadedSongs = await User.deleteUploadedSong(userID, song);
 	fs.unlink(`public/song_files/${req.body.song.songFilename}`, () => {
 		fs.unlink(`public/artwork_files/${req.body.song.artworkFilename}`, () => {
 			res.status(200).json({
-				user: {
-					userID: user._id,
-					email: user.email,
-					username: user.username,
-					favoriteSongs: user.favoriteSongs,
-					uploadedSongs: user.uploadedSongs
-				},
-				songs
+				allSongs,
+				uploadedSongs
 			});
 		});
 	});

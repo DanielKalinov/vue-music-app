@@ -59,8 +59,9 @@ userSchema.statics.addToFavorites = async function (userID, song) {
 	);
 	if (songIsFavorite) {
 		await this.updateOne({ _id: userID }, { $pull: { favoriteSongs: song } });
+
 		user = await this.findOne({ _id: userID });
-		return user;
+		return user.favoriteSongs;
 	} else {
 		await this.updateOne(
 			{ _id: userID },
@@ -68,7 +69,7 @@ userSchema.statics.addToFavorites = async function (userID, song) {
 		);
 
 		user = await this.findOne({ _id: userID });
-		return user;
+		return user.favoriteSongs;
 	}
 };
 
@@ -77,8 +78,9 @@ userSchema.statics.uploadSong = async function (userID, song) {
 		{ _id: userID },
 		{ $push: { uploadedSongs: { $each: [song], $position: 0 } } }
 	);
+
 	const user = await this.findOne({ _id: userID });
-	return user;
+	return user.uploadedSongs;
 };
 
 userSchema.statics.deleteUploadedSong = async function (userID, song) {
@@ -86,8 +88,9 @@ userSchema.statics.deleteUploadedSong = async function (userID, song) {
 		{ _id: userID },
 		{ $pull: { uploadedSongs: { _id: mongoose.Types.ObjectId(song._id) } } }
 	);
+
 	const user = await this.findOne({ _id: userID });
-	return user;
+	return user.uploadedSongs;
 };
 
 const User = mongoose.model('user', userSchema);

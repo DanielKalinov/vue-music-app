@@ -74,7 +74,9 @@ export default {
 				.then((res) => {
 					resolve(res.data);
 
-					context.commit('uploadSong', { user: res.data.user });
+					context.commit('uploadSong', {
+						uploadedSongs: res.data.uploadedSongs
+					});
 
 					router.replace('/');
 				})
@@ -102,7 +104,9 @@ export default {
 				song: payload.song
 			})
 			.then((res) => {
-				context.commit('addToFavorites', { user: res.data.user });
+				context.commit('addToFavorites', {
+					favoriteSongs: res.data.favoriteSongs
+				});
 			});
 	},
 	deleteSong(context, payload) {
@@ -113,8 +117,8 @@ export default {
 			})
 			.then((res) => {
 				context.commit('deleteSong', {
-					user: res.data.user,
-					allSongs: res.data.songs
+					allSongs: res.data.allSongs,
+					uploadedSongs: res.data.uploadedSongs
 				});
 			});
 	},
