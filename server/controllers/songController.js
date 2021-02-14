@@ -40,7 +40,14 @@ module.exports.uploadSong = async (req, res) => {
 		});
 		const user = await User.uploadSong(userID, song);
 
-		res.status(201).json({ user });
+		res.status(201).json({
+			user: {
+				userID: user._id,
+				email: user.email,
+				username: user.username,
+				favoriteSongs: user.favoriteSongs
+			}
+		});
 	} catch (err) {
 		console.log(err.message);
 		res.status(500).json('Something went wrong');
@@ -68,7 +75,15 @@ module.exports.deleteSong = async (req, res) => {
 	const user = await User.deleteUploadedSong(userID, song);
 	fs.unlink(`public/song_files/${req.body.song.songFilename}`, () => {
 		fs.unlink(`public/artwork_files/${req.body.song.artworkFilename}`, () => {
-			res.status(200).json({ user, songs });
+			res.status(200).json({
+				user: {
+					userID: user._id,
+					email: user.email,
+					username: user.username,
+					favoriteSongs: user.favoriteSongs
+				},
+				songs
+			});
 		});
 	});
 };

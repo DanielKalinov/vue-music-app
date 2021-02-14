@@ -50,7 +50,7 @@ module.exports.logIn = async (req, res) => {
 	try {
 		const user = await User.logIn(email, password);
 		req.session.userID = user._id;
-		res.json({
+		res.status(200).json({
 			user: {
 				userID: user._id,
 				email: user.email,
