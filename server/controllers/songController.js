@@ -44,13 +44,14 @@ module.exports.uploadSong = async (req, res) => {
 			uploadedSongs
 		});
 	} catch (err) {
-		console.log(err.message);
 		res.status(500).json('Something went wrong');
 	}
 };
 module.exports.editSong = async (req, res) => {
-	const songs = await Song.editSong(req.body.song);
-	res.status(200).json({ songs });
+	const { userID, song } = req.body;
+	const allSongs = await Song.editSong(song);
+	const uploadedSongs = await User.editSong(userID, song);
+	res.status(200).json({ allSongs, uploadedSongs });
 };
 module.exports.addToFavorites = async (req, res) => {
 	const { song, userID } = req.body;

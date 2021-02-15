@@ -123,10 +123,15 @@ export default {
 			});
 	},
 	editSong(context, payload) {
-		const { song } = payload;
-		axios.put(`${url}/editsong/${song.songID}`, { song }).then((res) => {
-			context.commit('editSong', { allSongs: res.data.songs });
-			router.replace('/');
-		});
+		const { userID, song } = payload;
+		axios
+			.put(`${url}/editsong/${song.songID}`, { userID, song })
+			.then((res) => {
+				context.commit('editSong', {
+					allSongs: res.data.allSongs,
+					uploadedSongs: res.data.uploadedSongs
+				});
+				router.replace('/');
+			});
 	}
 };

@@ -83,6 +83,26 @@ userSchema.statics.uploadSong = async function (userID, song) {
 	return user.uploadedSongs;
 };
 
+userSchema.statics.editSong = async function (userID, song) {
+	const { songID, title, artist, description } = song;
+	await this.updateOne(
+		{
+			_id: userID,
+			'uploadedSongs._id': mongoose.Types.ObjectId(songID)
+		},
+		{
+			$set: {
+				'uploadedSongs.$.title': title,
+				'uploadedSongs.$.artist': artist,
+				'uploadedSongs.$.description': description
+			}
+		}
+	);
+
+	const user = await this.findOne({ _id: userID });
+	return user.uploadedSongs;
+};
+
 userSchema.statics.deleteUploadedSong = async function (userID, song) {
 	await this.updateOne(
 		{ _id: userID },

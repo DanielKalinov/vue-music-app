@@ -104,5 +104,6 @@ export default {
 	},
 	editSong(state, payload) {
 		state.allSongs = payload.allSongs;
+		state.user.uploadedSongs = payload.uploadedSongs;
 	}
 };

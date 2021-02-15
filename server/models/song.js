@@ -23,8 +23,8 @@ songSchema.statics.editSong = async function (song) {
 		{ $set: { title, artist, description } }
 	);
 
-	const songs = await this.find();
-	return songs;
+	const allSongs = await this.find();
+	return allSongs;
 };
 
 songSchema.statics.deleteSongFile = async function (songID) {
